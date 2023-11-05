@@ -33,3 +33,4 @@ struct senha_usada{
 // fazer o calculo para validação do cpf
 // já fazer aqui toda a parte de receber os dados criação de arquivos etc
 // também aqui a parte de solicitação para ver o a senha do app
+// fazer um gerador de senhas que gere 9 caracteres, sendo um numero, uma letra maiuscula e um numero
