@@ -40,39 +40,6 @@ struct senha_usada
 
 // gerador de senhas, gera 10 caracteres aleatórios.
 
-void gerarSenha()
-{
-    int n = 10;
-    char senha[n + 1];
-
-    srand(time(NULL));
-
-    char numeros[] = "0123456789";
-    char letrasMinusculas[] = "abcdefghijklmnopqrstuvwxyz";
-    char letrasMaiusculas[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char simbolos[] = "!@#$&*";
-
-    for (int i = 0; i < n; i++)
-    {
-        int categoria = rand() % 4;
-        switch (categoria)
-        {
-        case 0:
-            senha[i] = numeros[rand() % 10];
-            break;
-        case 1:
-            senha[i] = letrasMinusculas[rand() % 26];
-            break;
-        case 2:
-            senha[i] = letrasMaiusculas[rand() % 26];
-            break;
-        case 3:
-            senha[i] = simbolos[rand() % 6];
-            break;
-        }
-    }
-}
-
 // Coisas para fazer:
 // fazer o calculo para validação do cpf
 
