@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-struct pessoa
+struct cadastro
 {
     char nome[20];
     char sobrenome[20];
