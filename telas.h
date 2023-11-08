@@ -19,18 +19,33 @@ void telaMenu(){
 
 }
 
-
-void telaAdm(){
+void gerenciadorUsuario(){
     system("cls");
 
     printf("*********************\n");
     printf("*                    *\n");
-    printf("*    MENU DO ADM     *\n");
+    printf("*    GERENCIADOR     *\n");
     printf("*                    *\n");
     printf("*********************\n");
-    printf("* 1 - Remover CLiente*\n");
-    printf("* 2 - Listar CLientes*\n");
-    printf("* 2 - Consultar CLiente*\n");
+    printf("* 1 - Adicionar Site *\n");
+    printf("* 2 - Listar Sites   *\n");
+    printf("* 3 - Voltar         *\n");
     printf("*********************\n");
+
+}
+
+
+void telaAdm(){
+    system("cls");
+
+    printf("*************************\n");
+    printf("*                       *\n");
+    printf("*    MENU DO ADM        *\n");
+    printf("*                       *\n");
+    printf("*************************\n");
+    printf("* 1 - Remover CLiente   *\n");
+    printf("* 2 - Listar CLientes   *\n");
+    printf("* 2 - Consultar CLiente *\n");
+    printf("*************************\n");
 
 }
