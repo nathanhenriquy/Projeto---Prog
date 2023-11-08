@@ -12,9 +12,15 @@ struct pessoa
     int dia;
     int mes;
     int ano;
-    char nacionalidade[30]; // fazer para aceitar somente brasileiros
     char email[100];
+    char username[20];
     char senha[30]; // senha para acessar sua conta no gerenciador de senhas
+};
+
+struct login
+{
+    char username[20];
+    char senha[20];   
 };
 
 struct app
