@@ -19,19 +19,6 @@ void menu(){
 
 }
 
-void menu_adm(){
-    system("cls");
-
-    printf("*********************\n");
-    printf("*                    *\n");
-    printf("*    MENU DO ADM     *\n");
-    printf("*                    *\n");
-    printf("*********************\n");
-    printf("* 1 - Entrar         *\n");
-    printf("* 2 - Voltar         *\n");
-    printf("*********************\n");
-
-}
 
 void adm(){
     system("cls");
