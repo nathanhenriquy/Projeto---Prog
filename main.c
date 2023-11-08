@@ -9,6 +9,8 @@ int main()
 {
     int escolha;
 
+    struct pessoa u; // u seria de usuário, coloquei simplicado para não ficar muita coisa na hora de fazer os scanfs
+
     telaMenu();
 
     return 0;
