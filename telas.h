@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-void menu(){
+void telaMenu(){
     system("cls");
 
     printf("*********************\n");
@@ -20,7 +20,7 @@ void menu(){
 }
 
 
-void adm(){
+void telaAdm(){
     system("cls");
 
     printf("*********************\n");
