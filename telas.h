@@ -45,7 +45,8 @@ void telaAdm(){
     printf("*************************\n");
     printf("* 1 - Remover CLiente   *\n");
     printf("* 2 - Listar CLientes   *\n");
-    printf("* 2 - Consultar CLiente *\n");
+    printf("* 3 - Consultar CLiente *\n");
+    printf("* 4 - Voltar            *\n");
     printf("*************************\n");
 
 }
