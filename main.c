@@ -9,7 +9,7 @@ int main()
 {
     int escolha;
 
-    menu();
+    telaMenu();
 
     return 0;
 }
