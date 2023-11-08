@@ -3,7 +3,7 @@
 #include <string.h>
 #include <conio.h>
 
-int main(){
+int main(){    
     
     
 
