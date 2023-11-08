@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "telas.h"
+#include "cadastros.h"
+#include "adm.h"
 
-int main(){
+int main()
+{
+    int escolha;
 
-    menu();    
-    
-    
+    menu();
 
     return 0;
 }
