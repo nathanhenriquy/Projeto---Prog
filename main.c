@@ -22,7 +22,7 @@ int main()
         switch (escolha)
         {
         case 1:
-            if ()// aqui vai ser a parte de login
+            if (login(&u))// aqui vai ser a parte de login
             {
                 printf("Login bem-sucedido!\n");
                 while (1)
