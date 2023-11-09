@@ -22,13 +22,13 @@ void registrarCadastro(struct cadastro *u) {
     fflush(stdin);
     gets(u->nome);
     fflush(stdin);
-    printf("Digite sua data de nascimento: ");
+    printf("Digite sua data de nascimento:\n");
     printf("Dia (2 digitos): ");
-    scanf("%i", u->dia);
+    scanf("%i", &u->dia);
     printf("Mes (2 digitos): ");
-    scanf("%i", u->mes);
+    scanf("%i", &u->mes);
     printf("Ano (4 digitos): ");
-    scanf("%i", u->ano);
+    scanf("%i", &u->ano);
     printf("Digite seu CPF: ");
     scanf("%s", u->cpf);
     printf("Digite seu telefone (sem espacos): ");
@@ -44,14 +44,14 @@ void registrarCadastro(struct cadastro *u) {
     FILE * arq = fopen("usuarios.txt", "a");
 
     if (arq == NULL) {
-        printf("Erro ao abrir o arquivo de usuários.\n"); // teste de abertura
+        printf("Erro ao abrir o arquivo de usuarios.\n"); // teste de abertura
         return;
     }
     
     fprintf(arq, "%s %i %i %i %s %s %s %s %s\n", u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
     
-    printf("Usuário registrado!\n");
+    printf("Usuario registrado!\n");
 }
 
 
@@ -59,11 +59,34 @@ void registrarCadastro(struct cadastro *u) {
 
 // ==== Login daqui para baixo ====
 
-struct login
-{
-    char username[20];
-    char senha[20];   
-};
+
+int login(struct cadastro *u) {
+    printf("Nome de usuário: ");
+    scanf("%s", u->username);
+    printf("Senha: ");
+    scanf("%s", u->password);
+    
+    
+    FILE *file = fopen("usuarios.txt", "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de usuários.\n");
+        return 0;
+    }
+
+    struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
+
+    while (fscanf(file, "%s %s", usuarioTemp.username, usuarioTemp.senha) != EOF) {
+        if (strcmp(u->username, tempUser.username) == 0 && strcmp(u->password, tempUser.password) == 0) {
+
+            fclose(file);
+            return 1; // Login deu boa
+        }
+    }
+    
+    fclose(file);
+    return 0; // Login deu memes
+}
+
 
 // ==== Login daqui para cima ====
 
