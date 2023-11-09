@@ -72,23 +72,23 @@ int login(struct cadastro *u) {
     scanf("%s", u->senha);
     
     
-    FILE *file = fopen("usuarios.txt", "r");
-    if (file == NULL) {
+    FILE *arq = fopen("usuarios.txt", "r");
+    if (arq == NULL) {
         printf("Erro ao abrir o arquivo de usuários.\n");
         return 0;
     }
 
     struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
 
-    while (fscanf(file, "%s %i %i %i %s %s %s %s %s", usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
+    while (fscanf(arq, "%s %i %i %i %s %s %s %s %s", usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
         if (strcmp(u->username, usuarioTemp.username) == 0 && strcmp(u->senha, usuarioTemp.senha) == 0) {
 
-            fclose(file);
+            fclose(arq);
             return 1; // Login deu boa
         }
     }
     
-    fclose(file);
+    fclose(arq);
     return 0; // Login deu memes
 }
 
