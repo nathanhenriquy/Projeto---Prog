@@ -8,6 +8,7 @@
 struct cadastro
 {
     char nome[50];
+    int dia,mes,ano;
     char cpf[11];
     char tel[15];
     char email[100];
@@ -21,6 +22,13 @@ void registrarCadastro(struct cadastro *u) {
     fflush(stdin);
     gets(u->nome);
     fflush(stdin);
+    printf("Digite sua data de nascimento: ");
+    printf("Dia (2 digitos): ");
+    scanf("%i", u->dia);
+    printf("Mes (2 digitos): ");
+    scanf("%i", u->mes);
+    printf("Ano (4 digitos): ");
+    scanf("%i", u->ano);
     printf("Digite seu CPF: ");
     scanf("%s", u->cpf);
     printf("Digite seu telefone: ");
@@ -40,7 +48,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%s %s %s  %s %s %s\n", u->nome, u->cpf, u->tel, u->email, u->username, u->senha); 
+    fprintf(arq, "%s %i %i %i %s %s %s %s %s\n", u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
     
     printf("Usuário registrado!\n");
