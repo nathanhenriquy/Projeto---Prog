@@ -50,12 +50,15 @@ void registrarCadastro(struct cadastro *u) {
 
 // Cadastro daqui para cima
 
+// Login daqui para baixo
 
 struct login
 {
     char username[20];
     char senha[20];   
 };
+
+// Login daqui para cima
 
 struct app
 {
