@@ -75,7 +75,7 @@ int login(struct cadastro *u) {
 
     struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
 
-    while (fscanf(file, "%s %s", usuarioTemp.username, usuarioTemp.senha) != EOF) {
+    while (fscanf(file, "%s %i %i %i %s %s %s %s %s", usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
         if (strcmp(u->username, usuarioTemp.username) == 0 && strcmp(u->senha, usuarioTemp.senha) == 0) {
 
             fclose(file);
