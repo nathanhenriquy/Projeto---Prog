@@ -44,7 +44,7 @@ void registrarCadastro(struct cadastro *u) {
     fprintf(arq, "%s %s %s %s  %s %s %s\n", u->nome, u->sobrenome, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
     
-    printf("Usuário registrado com sucesso!\n");
+    printf("Usuário registrado!\n");
 }
 
 
