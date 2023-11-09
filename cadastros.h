@@ -17,6 +17,7 @@ struct cadastro
 };
 
 void registrarCadastro(struct cadastro *u) {
+    system("cls");
 
     printf("Digite seu nome completo: ");
     fflush(stdin);
@@ -63,6 +64,8 @@ void registrarCadastro(struct cadastro *u) {
 
 
 int login(struct cadastro *u) {
+    system("cls");
+    
     printf("Nome de usuário: ");
     scanf("%s", u->username);
     printf("Senha: ");
