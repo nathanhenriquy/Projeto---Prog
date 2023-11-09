@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-// Cadastro daqui para baixo
+// ==== Cadastro daqui para baixo ====
 
 struct cadastro
 {
@@ -48,9 +48,9 @@ void registrarCadastro(struct cadastro *u) {
 }
 
 
-// Cadastro daqui para cima
+// ==== Cadastro daqui para cima ====
 
-// Login daqui para baixo
+// ==== Login daqui para baixo ====
 
 struct login
 {
@@ -58,7 +58,14 @@ struct login
     char senha[20];   
 };
 
-// Login daqui para cima
+// ==== Login daqui para cima ====
+
+
+
+
+
+
+
 
 struct app
 {
