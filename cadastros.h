@@ -31,7 +31,7 @@ void registrarCadastro(struct cadastro *u) {
     printf("Digite um username para entrar no Gerenciador: ");
     scanf("%s", u->username);
     printf("Digite uma senha para entrar no Gerenciador: ");
-    scanf("%s", u->senha);
+    scanf("%s", u->senha); // usando seta pois estou passando um ponteiro para estrutura
 
     
     FILE * arq = fopen("usuarios.txt", "a");
@@ -41,7 +41,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%s %s %s %s  %s %s %s\n", u->nome, u->sobrenome, u->cpf, u->tel, u->email, u->username, u->senha);
+    fprintf(arq, "%s %s %s %s  %s %s %s\n", u->nome, u->sobrenome, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
     
     printf("Usuário registrado com sucesso!\n");
