@@ -64,7 +64,7 @@ int login(struct cadastro *u) {
     printf("Nome de usuário: ");
     scanf("%s", u->username);
     printf("Senha: ");
-    scanf("%s", u->password);
+    scanf("%s", u->senha);
     
     
     FILE *file = fopen("usuarios.txt", "r");
@@ -76,7 +76,7 @@ int login(struct cadastro *u) {
     struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
 
     while (fscanf(file, "%s %s", usuarioTemp.username, usuarioTemp.senha) != EOF) {
-        if (strcmp(u->username, tempUser.username) == 0 && strcmp(u->password, tempUser.password) == 0) {
+        if (strcmp(u->username, usuarioTemp.username) == 0 && strcmp(u->senha, usuarioTemp.senha) == 0) {
 
             fclose(file);
             return 1; // Login deu boa
