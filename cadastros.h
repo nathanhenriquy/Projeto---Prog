@@ -31,7 +31,7 @@ void registrarCadastro(struct cadastro *u) {
     scanf("%i", u->ano);
     printf("Digite seu CPF: ");
     scanf("%s", u->cpf);
-    printf("Digite seu telefone: ");
+    printf("Digite seu telefone (sem espacos): ");
     scanf("%s", u->tel);
     printf("Digite seu email: ");
     scanf("%s", u->email);
