@@ -3,19 +3,53 @@
 #include <string.h>
 #include <time.h>
 
+// Cadastro daqui para baixo
+
 struct cadastro
 {
     char nome[20];
     char sobrenome[20];
     char cpf[11];
     char tel[15];
-    int dia;
-    int mes;
-    int ano;
     char email[100];
     char username[20];
     char senha[30]; // senha para acessar sua conta no gerenciador de senhas
 };
+
+void registrarCadastro(struct cadastro *u) {
+
+    printf("Digite seu nome: ");
+    scanf("%s", u->nome);
+    printf("Digite seu primeiro sobrenome: ");
+    scanf("%s", u->sobrenome);
+    printf("Digite seu CPF: ");
+    scanf("%s", u->cpf);
+    printf("Digite seu telefone: ");
+    scanf("%s", u->tel);
+    printf("Digite seu email: ");
+    scanf("%s", u->email);
+    printf("Digite um username para entrar no Gerenciador: ");
+    scanf("%s", u->username);
+    printf("Digite uma senha para entrar no Gerenciador: ");
+    scanf("%s", u->senha);
+
+    
+    FILE * arq = fopen("usuarios.txt", "a");
+
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo de usuários.\n"); // teste de abertura
+        return;
+    }
+    
+    fprintf(arq, "%s %s %s %s  %s %s %s\n", u->nome, u->sobrenome, u->cpf, u->tel, u->email, u->username, u->senha);
+    fclose(arq);
+    
+    printf("Usuário registrado com sucesso!\n");
+}
+
+
+// Cadastro daqui para cima
+
 
 struct login
 {

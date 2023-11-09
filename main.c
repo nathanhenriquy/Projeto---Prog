@@ -58,7 +58,7 @@ int main()
             break;
 
         case 2:
-            // adicionar aqui é para cadastro de usuário
+            registrarCadastro (&u);// adicionar aqui é para cadastro de usuário
             break;
 
         case 3:
