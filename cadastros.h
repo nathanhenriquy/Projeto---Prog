@@ -32,7 +32,9 @@ void registrarCadastro(struct cadastro *u) {
     printf("Digite seu CPF: ");
     scanf("%s", u->cpf);
     printf("Digite seu telefone (sem espacos): ");
-    scanf("%s", u->tel);
+    fflush(stdin);
+    gets(u->tel);
+    fflush(stdin);
     printf("Digite seu email: ");
     scanf("%s", u->email);
     printf("Digite um username para entrar no Gerenciador: ");
