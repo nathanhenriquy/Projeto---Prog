@@ -95,10 +95,12 @@ int login(struct cadastro *u) {
 
 // ==== Login daqui para cima ====
 
+// ==== Verificador cpf daqui para baixo ====
 
 
 
 
+// ==== Verificador cpf daqui para cima ====
 
 
 
@@ -120,7 +122,6 @@ struct senha_usada
 // gerador de senhas, gera 10 caracteres aleatórios.
 
 // Coisas para fazer:
-// fazer o calculo para validação do cpf
 
 // já fazer aqui toda a parte de receber os dados criação de arquivos etc
 
