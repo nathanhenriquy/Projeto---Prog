@@ -7,6 +7,7 @@
 
 struct cadastro
 {
+    int id;
     char nome[50];
     int dia,mes,ano;
     char cpf[11];
@@ -16,9 +17,12 @@ struct cadastro
     char senha[30]; // senha para acessar sua conta no gerenciador de senhas
 };
 
+int pxId = 0; // para a contagem do id
+
 void registrarCadastro(struct cadastro *u) {
     system("cls");
 
+    u->id = pxId++;
     printf("Digite seu nome completo: ");
     fflush(stdin);
     gets(u->nome);
@@ -51,7 +55,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%s %i %i %i %s %s %s %s %s\n", u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
+    fprintf(arq, "%i %s %i %i %i %s %s %s %s %s\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
     
     printf("Usuario registrado!\n");
@@ -80,7 +84,7 @@ int login(struct cadastro *u) {
 
     struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
 
-    while (fscanf(arq, "%s %i %i %i %s %s %s %s %s", usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
+    while (fscanf(arq, "%d %s %i %i %i %s %s %s %s %s", usuarioTemp.id, usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
         if (strcmp(u->username, usuarioTemp.username) == 0 && strcmp(u->senha, usuarioTemp.senha) == 0) {
 
             fclose(arq);
