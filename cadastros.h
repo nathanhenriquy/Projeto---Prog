@@ -17,7 +17,7 @@ struct cadastro
     char senha[30]; // senha para acessar sua conta no gerenciador de senhas
 };
 
-int pxId = 0; // para a contagem do id
+int pxId = 1; // para a contagem do id
 
 void registrarCadastro(struct cadastro *u) {
     system("cls");
