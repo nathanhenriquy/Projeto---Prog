@@ -200,22 +200,29 @@ void gerarSenha(char senha[], int n)
 
 // ==== Codigo para Listar os APPS do USER daqui para cima ====
 
-// ==== Codigo para Listar os APPS do USER daqui para baixo ====
+
+// ==== Codigo para Remover Cliente daqui para baixo ====
 
 
 
-// ==== Codigo para Listar os APPS do USER daqui para cima ====
+// ==== Codigo para Remover Cliente daqui para cima ====
+
+
+// ==== Codigo para Listar CLiente daqui para baixo ====
+
+
+
+// ==== Codigo para Listar CLiente daqui para cima ====
+
+
+// ==== Codigo para Consultar Cliente daqui para baixo ====
+
+
+
+// ==== Codigo para Consultar Cliente daqui para cima ====
 
 
 
 
 
 
-
-// gerador de senhas, gera 10 caracteres aleatórios.
-
-// Coisas para fazer:
-
-// já fazer aqui toda a parte de receber os dados criação de arquivos etc
-
-// também aqui a parte de solicitação para ver o a senha do app
