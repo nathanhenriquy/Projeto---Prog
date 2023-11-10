@@ -35,10 +35,10 @@ int main()
                     switch (escolha)
                     {
                     case 1:
-                        // adicionar aqui é para adicionar site
+                        adicionarApp(&u); //adicionar app
                         break;
                     case 2:
-                        // adicionar aqui é para listar sites
+                        // listar apps
                         break;
                     case 3:
                         printf("Retornando ao menu principal...\n");
@@ -61,7 +61,7 @@ int main()
             break;
 
         case 2:
-            registrarCadastro (&u);// adicionar aqui é para cadastro de usuário
+            registrarCadastro (&u);//  cadastro de usuário
             break;
 
         case 3:
@@ -73,13 +73,13 @@ int main()
                 switch (escolha)
                 {
                 case 1:
-                    // adicionar aqui é para remover usuário
+                    //  remover usuário
                     break;
                 case 2:
-                    // adicionar aqui é para listar 
+                    //  listar 
                     break;
                 case 3:
-                   // adicionar aqui é para consultar pelo cpf
+                   // consultar pelo cpf
                     break;
                 case 4:
                     printf("Retornando ao menu principal...\n");
