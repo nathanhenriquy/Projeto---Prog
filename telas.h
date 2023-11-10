@@ -36,7 +36,7 @@ void gerenciadorUsuario(){
 
 
 void telaAdm(){
-    system("cls");
+    
 
     printf("*************************\n");
     printf("*                       *\n");
