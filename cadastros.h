@@ -22,7 +22,7 @@ int pxId = 1; // para a contagem do id
 void registrarCadastro(struct cadastro *u) {
     system("cls");
 
-    u->id = pxId++;
+    u->id = pxId++; // aq é para somar o proximo id
     printf("Digite seu nome completo: ");
     fflush(stdin);
     gets(u->nome);
