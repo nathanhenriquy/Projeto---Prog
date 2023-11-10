@@ -158,7 +158,7 @@ void adicionarApp(struct cadastro *u) {
 
 // ==== Gerador de senhas ====
 
-void gerarSenha(senha[], n)
+void gerarSenha(char senha[], int n)
 {
     srand(time(NULL));
 
@@ -192,6 +192,21 @@ void gerarSenha(senha[], n)
 }
 
 // ==== Codigo para adicionar o APP daqui para cima ====
+
+
+// ==== Codigo para Listar os APPS do USER daqui para baixo ====
+
+
+
+// ==== Codigo para Listar os APPS do USER daqui para cima ====
+
+// ==== Codigo para Listar os APPS do USER daqui para baixo ====
+
+
+
+// ==== Codigo para Listar os APPS do USER daqui para cima ====
+
+
 
 
 
