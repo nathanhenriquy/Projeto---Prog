@@ -145,13 +145,13 @@ void adicionarApp(struct cadastro *u) {
     
     FILE * arq = fopen("inforSite.txt", "a");
 
-    if (file == NULL) {
+    if (arq == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
     
-    fprintf(file, "%s %s %s %s %s \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf, );
-    fclose(file);
+    fprintf(arq, "%s %s %s %s %s \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf );
+    fclose(arq);
     
     printf("Informações do site/senha adicionadas com sucesso!\n");
 }
