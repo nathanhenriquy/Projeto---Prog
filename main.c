@@ -3,6 +3,7 @@
 #include <string.h>
 #include "telas.h"
 #include "cadastros.h"
+#include "verificacpf.h"
 
 int main()
 {
