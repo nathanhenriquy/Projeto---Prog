@@ -196,7 +196,7 @@ void gerarSenha(char senha[], int n)
 
 // ==== Codigo para Listar os APPS do USER daqui para baixo ====
 
-
+// Eu (nathan) vou fazer esse
 
 // ==== Codigo para Listar os APPS do USER daqui para cima ====
 
