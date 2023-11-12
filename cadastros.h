@@ -46,32 +46,34 @@ void registrarCadastro(struct cadastro *u) {
     long long int cpf;
     char temp[22]; // será usado apenas para ser passado por parametro
 
+    struct cadastro *c = (struct cadastro *)malloc(sizeof(struct cadastro));
+
     int pxId = carregarUltimoId();
     u->id = pxId++; // aq é para somar o proximo id
     printf("Digite seu nome completo: ");
     fflush(stdin);
-    gets(u->nome);
+    gets(c->nome);
     fflush(stdin);
 
     do {
     printf("Digite sua data de nascimento:\n");
     printf("Dia (2 digitos): ");
-    scanf("%i", &u->dia);
+    scanf("%i", &c->dia);
     printf("Mes (1 digito até o 9): ");
-    scanf("%i", &u->mes);
+    scanf("%i", &c->mes);
     printf("Ano (4 digitos): ");
-    scanf("%i", &u->ano);
+    scanf("%i", &c->ano);
 
-        if (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023) {
+        if (c->dia < 1 || c->dia > 31 || c->mes < 1 || c->mes > 12 || c->ano < 1900 || c->ano > 2023) {
             printf("Data de nascimento invalida. Por favor, insira uma data valida.\n");
         }
-    } while (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023);
+    } while (c->dia < 1 || c->dia > 31 || c->mes < 1 || c->mes > 12 || c->ano < 1900 || c->ano > 2023);
 
     do {
         printf("Digite seu CPF: ");
         scanf("%lld", &cpf);
 
-        u->cpf = cpf; // passando a variavel local para a struct, evitando erros
+        c->cpf = cpf; // passando a variavel local para a struct, evitando erros
 
         sprintf(temp, "%lld", cpf);
     } while (verificaCPF(temp) == 0);
@@ -79,23 +81,23 @@ void registrarCadastro(struct cadastro *u) {
     do {
     printf("Digite seu telefone (sem espaços, com DDD): ");
     fflush(stdin);
-    gets(u->tel);
+    gets(c->tel);
     fflush(stdin);
 
-        if (strlen(u->tel) != 11) {
+        if (strlen(c->tel) != 11) {
             printf("Formato de telefone invalido. O telefone deve ter 11 digitos. Por favor, corrija.\n");
         }
         
-    } while (strlen(u->tel) != 11);
+    } while (strlen(c->tel) != 11);
 
     printf("Digite seu email: ");
-    scanf("%s", u->email);
+    scanf("%s", c->email);
 
     printf("Digite um username para entrar no Gerenciador: ");
-    scanf("%s", u->username);
+    scanf("%s", c->username);
 
     printf("Digite uma senha para entrar no Gerenciador: ");
-    scanf("%s", u->senha); // usando seta pois estou passando um ponteiro para estrutura
+    scanf("%s", c->senha); // usando seta pois estou passando um ponteiro para estrutura
 
     
     FILE * arq = fopen("usuarios.txt", "a");
@@ -105,7 +107,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%i %s %i %i %i %s %s %s %s %s\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
+    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s\n", c->id, c->nome,c->dia, c->mes,c->ano, c->cpf, c->tel, c->email, c->username, c->senha); 
     fclose(arq);
 
     salvarUltimoId(pxId);
@@ -136,7 +138,7 @@ int login(struct cadastro *u) {
 
     struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
 
-    while (fscanf(arq, "%i %s %i %i %i %s %s %s %s %s", &usuarioTemp.id, usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
+    while (fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s", &usuarioTemp.id, usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, &usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
         if (strcmp(u->username, usuarioTemp.username) == 0 && strcmp(u->senha, usuarioTemp.senha) == 0) {
 
             fclose(arq);
@@ -314,7 +316,7 @@ void gerarSenha(char *senha[], int n)
 void listarSitesUsuario(struct cadastro *u)
 {
     system("cls");
-    struct app a;
+    struct app *a = (struct app *)malloc(sizeof(struct app));
 
     FILE * arq = fopen ("inforSite.txt", "r");
 
@@ -325,15 +327,15 @@ void listarSitesUsuario(struct cadastro *u)
 
     printf("Lista de Apps/Sites cadastrados para o usuário:\n\n");
 
-    while (fscanf(arq, "%s %s %s %s %i", a.site, a.email_usado, a.user_usado, a.senha_usada, &a.id) != EOF)
+    while (fscanf(arq, "%s %s %s %s %i", a->site, a->email_usado, a->user_usado, a->senha_usada, &a->id) != EOF)
     {
         // Verificar se o ID no arquivo corresponde ao ID do usuário logado
-        if (a.id == u->id) 
+        if (a->id == u->id) 
         {
-            printf("Site: %s\n", a.site);
-            printf("Email usado: %s\n", a.email_usado);
-            printf("Nome de usuário: %s\n", a.user_usado);
-            printf("Senha: %s\n", a.senha_usada);
+            printf("Site: %s\n", a->site);
+            printf("Email usado: %s\n", a->email_usado);
+            printf("Nome de usuário: %s\n", a->user_usado);
+            printf("Senha: %s\n", a->senha_usada);
             printf("---------------------------\n");
         }
     }
