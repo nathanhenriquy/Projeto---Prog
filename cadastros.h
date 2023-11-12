@@ -65,8 +65,14 @@ void registrarCadastro(struct cadastro *u) {
         }
     } while (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023);
 
+    do {
     printf("Digite seu CPF: ");
     scanf("%s", u->cpf);
+
+        if (!verificaCPF(u->cpf)) {
+            printf("CPF inválido. Por favor, insira um CPF válido.\n");
+        }
+    } while (!verificaCPF(u->cpf));
 
     do {
     printf("Digite seu telefone (sem espaços, com DDD): ");
@@ -74,10 +80,10 @@ void registrarCadastro(struct cadastro *u) {
     gets(u->tel);
     fflush(stdin);
 
-    
         if (strlen(u->tel) != 11) {
             printf("Formato de telefone invalido. O telefone deve ter 11 digitos. Por favor, corrija.\n");
         }
+        
     } while (strlen(u->tel) != 11);
 
     printf("Digite seu email: ");
