@@ -219,6 +219,7 @@ struct app
 };
 
 void adicionarApp(struct cadastro *u) {
+    system("cls");  
     struct app a;
     int respSenha;  
 
@@ -297,6 +298,7 @@ void gerarSenha(char senha[], int n)
 
 void listarSitesUsuario(struct cadastro *u)
 {
+    system("cls");
     struct app a;
 
     FILE * arq = fopen ("inforSite.txt", "r");
