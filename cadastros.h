@@ -10,7 +10,7 @@ struct cadastro
     int id;
     char nome[50];
     int dia,mes,ano;
-    char cpf[11];
+    long long int cpf; // o int normal nao comporta todos os digitos do cpf
     char tel[15];
     char email[100];
     char username[20];
@@ -43,6 +43,8 @@ int carregarUltimoId() {
 
 void registrarCadastro(struct cadastro *u) {
     system("cls");
+    long long int cpf;
+    char temp[22]; // será usado apenas para ser passado por parametro
 
     int pxId = carregarUltimoId();
     u->id = pxId++; // aq é para somar o proximo id
@@ -66,13 +68,13 @@ void registrarCadastro(struct cadastro *u) {
     } while (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023);
 
     do {
-    printf("Digite seu CPF: ");
-    scanf("%s", u->cpf);
+        printf("Digite seu CPF: ");
+        scanf("%lld", &cpf);
 
-        if (!verificaCPF(u->cpf)) {
-            printf("CPF inválido. Por favor, insira um CPF válido.\n");
-        }
-    } while (!verificaCPF(u->cpf));
+        u->cpf = cpf; // passando a variavel local para a struct, evitando erros
+        
+        sprintf(temp, "%lld", cpf);
+    } while (verificaCPF(temp) == 0);
 
     do {
     printf("Digite seu telefone (sem espaços, com DDD): ");
