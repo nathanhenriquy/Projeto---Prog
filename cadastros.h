@@ -116,7 +116,7 @@ struct app
     char email_usado[100]; // email usado no dado app
     char user_usado[20];   // nome de usuário usado
     char senha_usada[100];
-    char cpf[11];
+    int id;
 };
 
 void adicionarApp(struct cadastro *u) {
@@ -140,7 +140,7 @@ void adicionarApp(struct cadastro *u) {
         scanf("%s", a.senha_usada);
     }
     
-    strcpy(a.cpf, u->cpf);
+    a.id = u->id;
     
     
     FILE * arq = fopen("inforSite.txt", "a");
@@ -150,7 +150,7 @@ void adicionarApp(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%s %s %s %s %s \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf );
+    fprintf(arq, "%s %s %s %s %i \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.id );
     fclose(arq);
     
     printf("Informações do site/senha adicionadas com sucesso!\n");
@@ -207,13 +207,28 @@ void listarSitesUsuario(struct cadastro *u)
         return;
     };
 
+    printf("Lista de Apps/Sites cadastrados para o usuário:\n\n");
+
+    while (fscanf(arq, "%s %s %s %s %i", a.site, a.email_usado, a.user_usado, a.senha_usada, &a.id) != EOF)
+    {
+        // Verificar se o ID no arquivo corresponde ao ID do usuário logado
+        if (a.id == u->id) 
+        {
+            printf("Site: %s\n", a.site);
+            printf("Email usado: %s\n", a.email_usado);
+            printf("Nome de usuário: %s\n", a.user_usado);
+            printf("Senha: %s\n", a.senha_usada);
+            printf("---------------------------\n");
+        }
+    }
+
 
     
 
     fclose(arq);    
 
-}
-;
+};
+
 // ==== Codigo para Listar os APPS do USER daqui para cima ====
 
 
