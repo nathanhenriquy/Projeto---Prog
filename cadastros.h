@@ -211,7 +211,7 @@ void listarSitesUsuario(struct cadastro *u)
 
      while (fscanf(arq, "%s %s %s %s %s", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf) != EOF) { //pego as informações que preciso
         if (strcmp(a.cpf, u->cpf) == 0) { // comparo o cpf para pegar as informações linkadas com o mesmo
-            printf("Site: %s\n", a.site);
+            printf("Site/Jogo: %s\n", a.site);
             printf("Email: %s\n", a.email_usado);
             printf("Nome de usuário: %s\n", a.user_usado);
             printf("Senha: %s\n", a.senha_usada);
