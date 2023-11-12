@@ -196,7 +196,7 @@ void gerarSenha(char senha[], int n)
 
 // ==== Codigo para Listar os APPS do USER daqui para baixo ====
 
-void listarSitesUsuário(struct cadastro *u)
+void listarSitesUsuario(struct cadastro *u)
 {
     struct app a;
 

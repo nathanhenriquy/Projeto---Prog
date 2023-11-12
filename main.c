@@ -41,7 +41,7 @@ int main()
                         adicionarApp(&u); //adicionar app
                         break;
                     case 2:
-                        listarSitesUsuário(&u);// listar apps
+                        listarSitesUsuario(&u);// listar apps
                         break;
                     case 3:
                         printf("Retornando ao menu principal...\n");
