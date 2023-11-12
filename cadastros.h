@@ -196,9 +196,38 @@ void gerarSenha(char senha[], int n)
 
 // ==== Codigo para Listar os APPS do USER daqui para baixo ====
 
-// Eu (nathan) vou fazer esse
+void listarSitesUsuário(struct cadastro *u)
+{
+    struct app a;
+
+    FILE * arq = fopen ("inforSite.txt", "r");
+
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo .\n");
+        return;
+    }
+
+    printf("Lista dos sites/jogos e senhas respectivas: \n");
+
+     while (fscanf(arq, "%s %s %s %s %s", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf) != EOF) { //pego as informações que preciso
+        if (strcmp(a.cpf, u->cpf) == 0) { // comparo o cpf para pegar as informações linkadas com o mesmo
+            printf("Site: %s\n", a.site);
+            printf("Email: %s\n", a.email_usado);
+            printf("Nome de usuário: %s\n", a.user_usado);
+            printf("Senha: %s\n", a.senha_usada);
+            printf("\n\n");
+        }
+    }
+
+    fclose(arq);    
+
+}
 
 // ==== Codigo para Listar os APPS do USER daqui para cima ====
+
+
+
+
 
 
 // ==== Codigo para Remover Cliente daqui para baixo ====
