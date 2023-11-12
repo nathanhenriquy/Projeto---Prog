@@ -17,11 +17,34 @@ struct cadastro
     char senha[30]; // senha para acessar sua conta no gerenciador de senhas
 };
 
-int pxId = 1; // para a contagem do id
+void salvarUltimoId(int ultimoId) {
+    FILE *arq = fopen("ultimoid.txt", "w");
+    if (arq != NULL) {
+        fprintf(arq, "%d", ultimoId);
+        fclose(arq);
+    } else {
+        printf("Erro ao salvar o último ID.\n");
+    }
+}
+
+int carregarUltimoId() {
+    int ultimoId = 1; // Valor para o id
+
+    FILE *arq = fopen("ultimoid.txt", "r");
+    if (arq != NULL) {
+        fscanf(arq, "%d", &ultimoId);
+        fclose(arq);
+    }
+
+    return ultimoId;
+}
+
+
 
 void registrarCadastro(struct cadastro *u) {
     system("cls");
 
+    int pxId = carregarUltimoId();
     u->id = pxId++; // aq é para somar o proximo id
     printf("Digite seu nome completo: ");
     fflush(stdin);
@@ -57,6 +80,8 @@ void registrarCadastro(struct cadastro *u) {
     
     fprintf(arq, "%i %s %i %i %i %s %s %s %s %s\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
+
+    salvarUltimoId(pxId);
     
     printf("Usuario registrado!\n");
 }
