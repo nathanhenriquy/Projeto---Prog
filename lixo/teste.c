@@ -1,9 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// ATENÇÃO: caso alguem q nao seja eu(paulo) vá implementar o verificador de cpf na main, coloquei a função com retorno 1,
-// para sinalizar que o cpf tava errado e tem q repetir o printf/scanf, mas se estiver correto ele retorna 0
+#include <stdbool.h>
 
 int verificaCPF(int cpf[]) {
     int i;                      // contador
@@ -33,4 +29,25 @@ int verificaCPF(int cpf[]) {
     d2 = (soma2 % 11 < 2) ? 0 : 11 - (soma2 % 11);
 
     return (cpf[10] != d2); // se for incorreto, vai retornar 1 e se for correto, 0
+}
+
+int main() {
+    int cpf[11];
+
+    printf("Digite o CPF (apenas números): ");
+    for (int i = 0; i < 11; i++) 
+    {
+        scanf("%1d", &cpf[i]);
+    }
+
+    if (verificaCPF(cpf) == 0) 
+    {
+        printf("\nCPF válido\n");
+    } 
+    else 
+    {
+        printf("\nCPF inválido\n");
+    }
+
+    return 0;
 }

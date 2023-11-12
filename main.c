@@ -3,10 +3,6 @@
 #include <string.h>
 #include "telas.h"
 #include "cadastros.h"
-#include "verificacpf.h"
-
-// ATENÇÃO: caso alguem q nao seja eu(paulo) vá implementar o verificador de cpf na main, coloquei a função com retorno 1,
-// para sinalizar que o cpf tava errado e tem q repetir o printf/scanf, mas se estiver correto ele retorna 0
 
 int main()
 {

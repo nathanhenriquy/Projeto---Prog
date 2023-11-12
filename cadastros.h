@@ -5,12 +5,14 @@
 
 // ==== Cadastro daqui para baixo ====
 
+int verificaCPF(int cpf[]); // declarando aqui só pra funcionar no cadastro;
+
 struct cadastro
 {
     int id;
     char nome[50];
     int dia,mes,ano;
-    char cpf[11];
+    int cpf[11]; // alterei pra int pq char nao tava funcionando, acredito q nao vai mudar nada
     char tel[15];
     char email[100];
     char username[20];
@@ -20,6 +22,7 @@ struct cadastro
 int pxId = 1; // para a contagem do id
 
 void registrarCadastro(struct cadastro *u) {
+    int resultadoVerificacao;
     system("cls");
 
     u->id = pxId++; // aq é para somar o proximo id
@@ -34,8 +37,24 @@ void registrarCadastro(struct cadastro *u) {
     scanf("%i", &u->mes);
     printf("Ano (4 digitos): ");
     scanf("%i", &u->ano);
-    printf("Digite seu CPF: ");
-    scanf("%s", u->cpf);
+    do {
+        printf("Digite seu CPF: ");
+        for (int i = 0; i < 11; i++) 
+        {
+            scanf("%1i", &u->cpf[i]);
+        }
+
+        resultadoVerificacao = verificaCPF(u->cpf);
+
+        if (resultadoVerificacao != 0){
+            printf("\nCPF inválido. Por favor, digite novamente.\n");
+        }
+        else if (resultadoVerificacao == 0)
+        {
+            printf("\ncorreto\n");
+        }
+    } while(resultadoVerificacao != 0);
+
     printf("Digite seu telefone (sem espacos): ");
     fflush(stdin);
     gets(u->tel);
@@ -102,6 +121,36 @@ int login(struct cadastro *u) {
 
 // ==== Verificador cpf daqui para baixo ====
 
+int verificaCPF(int cpf[]) {
+    int i;                      // contador
+    int d1= 0, d2 = 0;                 // armazenam os digitos verificadores 1 e 2 para comparar ao cpf
+    int soma1 = 0, soma2 = 0;   // guardam a soma entre os digitos do cpf com seus respectivos pesos
+    int peso1 = 10, peso2 = 11; // necessarios para a atribuição de pesos para os digitos
+
+    for (i = 0; i < 9; i++) {
+        soma1 += cpf[i] * peso1;
+        peso1--;
+    }
+
+    d1 = (soma1 % 11 < 2) ? 0 : 11 - (soma1 % 11);
+
+    if (cpf[9] != d1) {
+        return 1;
+    }
+
+    soma2 = 0;
+    peso2 = 11;
+
+    for (i = 0; i < 10; i++) {
+        soma2 += cpf[i] * peso2;
+        peso2--;
+    }
+
+    d2 = (soma2 % 11 < 2) ? 0 : 11 - (soma2 % 11);
+
+    return (cpf[10] != d2); // se for incorreto, vai retornar 1 e se for correto, 0
+}
+
 
 
 
@@ -120,27 +169,33 @@ struct app
 };
 
 void adicionarApp(struct cadastro *u) {
-    struct app a;
+    struct app *a = (struct app *)malloc(sizeof(struct app));
+
+    if (a == NULL) {
+        printf("\nerro na alocação\n");
+        return;
+    }
+
     int respSenha;  
 
 
     printf("Nome do site/jogo/app: ");
-    scanf("%s", a.site);
+    scanf("%s", a->site);
     printf("Email usado: ");
-    scanf("%s", a.email_usado);
+    scanf("%s", a->email_usado);
     printf("Nome de usuario (caso nao exista coloque seu primeiro nome): ");
-    scanf("%s", a.user_usado);
+    scanf("%s", a->user_usado);
     printf("Deseja gerar uma senha aleatoria? (0 - Não, 1 - Sim): ");    
     scanf("%d", &respSenha);
     
     if (respSenha == 1) {
-        gerarSenha(a.senha_usada, 10); 
+        gerarSenha(a->senha_usada, 10); 
     } else {
         printf("Senha: ");
-        scanf("%s", a.senha_usada);
+        scanf("%s", a->senha_usada);
     }
     
-    strcpy(a.cpf, u->cpf);
+    strcpy(a->cpf, u->cpf);
     
     
     FILE * arq = fopen("inforSite.txt", "a");
@@ -150,7 +205,7 @@ void adicionarApp(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%s %s %s %s %s \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf );
+    fprintf(arq, "%s %s %s %s %s \n", a->site, a->email_usado, a->user_usado, a->senha_usada, a->cpf );
     fclose(arq);
     
     printf("Informações do site/senha adicionadas com sucesso!\n");
