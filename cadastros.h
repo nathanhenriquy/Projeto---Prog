@@ -128,9 +128,9 @@ void adicionarApp(struct cadastro *u) {
     scanf("%s", a.site);
     printf("Email usado: ");
     scanf("%s", a.email_usado);
-    printf("Nome de usuário (caso não exista coloque seu primeiro nome): ");
+    printf("Nome de usuario (caso nao exista coloque seu primeiro nome): ");
     scanf("%s", a.user_usado);
-    printf("Deseja gerar uma senha aleatória? (0 - Não, 1 - Sim): ");    
+    printf("Deseja gerar uma senha aleatoria? (0 - Não, 1 - Sim): ");    
     scanf("%d", &respSenha);
     
     if (respSenha == 1) {
@@ -189,7 +189,7 @@ void gerarSenha(char senha[], int n)
 
     senha[n] = '\0';
 
-}
+};
 
 // ==== Codigo para adicionar o APP daqui para cima ====
 
@@ -205,24 +205,15 @@ void listarSitesUsuario(struct cadastro *u)
     if (arq == NULL) {
         printf("Erro ao abrir o arquivo .\n");
         return;
-    }
+    };
 
-    printf("Lista dos sites/jogos e senhas respectivas: \n");
 
-     while (fscanf(arq, "%s %s %s %s %s", a.site, a.email_usado, a.user_usado, a.senha_usada, a.cpf) != EOF) { //pego as informações que preciso
-        if (strcmp(a.cpf, u->cpf) == 0) { // comparo o cpf para pegar as informações linkadas com o mesmo
-            printf("Site/Jogo: %s\n", a.site);
-            printf("Email: %s\n", a.email_usado);
-            printf("Nome de usuário: %s\n", a.user_usado);
-            printf("Senha: %s\n", a.senha_usada);
-            printf("\n\n");
-        }
-    }
+    
 
     fclose(arq);    
 
 }
-
+;
 // ==== Codigo para Listar os APPS do USER daqui para cima ====
 
 
