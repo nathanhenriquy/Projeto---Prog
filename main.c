@@ -3,6 +3,10 @@
 #include <string.h>
 #include "telas.h"
 #include "cadastros.h"
+#include "verificacpf.h"
+
+// ATENÇÃO: caso alguem q nao seja eu(paulo) vá implementar o verificador de cpf na main, coloquei a função com retorno 1,
+// para sinalizar que o cpf tava errado e tem q repetir o printf/scanf, mas se estiver correto ele retorna 0
 
 int main()
 {
@@ -14,7 +18,7 @@ int main()
 
     while (1)
     {
-        system("cls");
+        //system("cls");
 
         telaMenu();
         scanf("%d", &escolha);
@@ -24,7 +28,7 @@ int main()
         case 1:
             if (login(&u))// aqui vai ser a parte de login
             {
-                system("cls");
+                //system("cls");
                 printf("Login bem-sucedido!\n");
                 while (1)
                 {
@@ -50,7 +54,7 @@ int main()
                     {
                         break;
                     }
-                    system("cls");
+                    //system("cls");
                 }
             }
             else

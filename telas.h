@@ -4,7 +4,7 @@
 
 
 void telaMenu(){
-    system("cls");
+    //system("cls");
 
     printf("*********************\n");
     printf("*                    *\n");
@@ -20,7 +20,7 @@ void telaMenu(){
 }
 
 void gerenciadorUsuario(){
-    system("cls");
+    //system("cls");
 
     printf("*********************\n");
     printf("*                    *\n");

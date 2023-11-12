@@ -5,14 +5,12 @@
 
 // ==== Cadastro daqui para baixo ====
 
-int verificaCPF(int cpf[]); // declarando aqui só pra funcionar no cadastro;
-
 struct cadastro
 {
     int id;
     char nome[50];
     int dia,mes,ano;
-    int cpf[11]; // alterei pra int pq char nao tava funcionando, acredito q nao vai mudar nada
+    char cpf[11];
     char tel[15];
     char email[100];
     char username[20];
@@ -22,7 +20,6 @@ struct cadastro
 int pxId = 1; // para a contagem do id
 
 void registrarCadastro(struct cadastro *u) {
-    int resultadoVerificacao;
     system("cls");
 
     u->id = pxId++; // aq é para somar o proximo id
@@ -37,24 +34,8 @@ void registrarCadastro(struct cadastro *u) {
     scanf("%i", &u->mes);
     printf("Ano (4 digitos): ");
     scanf("%i", &u->ano);
-    do {
-        printf("Digite seu CPF: ");
-        for (int i = 0; i < 11; i++) 
-        {
-            scanf("%1i", &u->cpf[i]);
-        }
-
-        resultadoVerificacao = verificaCPF(u->cpf);
-
-        if (resultadoVerificacao != 0){
-            printf("\nCPF inválido. Por favor, digite novamente.\n");
-        }
-        else if (resultadoVerificacao == 0)
-        {
-            printf("\ncorreto\n");
-        }
-    } while(resultadoVerificacao != 0);
-
+    printf("Digite seu CPF: ");
+    scanf("%s", u->cpf);
     printf("Digite seu telefone (sem espacos): ");
     fflush(stdin);
     gets(u->tel);
@@ -121,38 +102,63 @@ int login(struct cadastro *u) {
 
 // ==== Verificador cpf daqui para baixo ====
 
-int verificaCPF(int cpf[]) {
-    int i;                      // contador
-    int d1= 0, d2 = 0;                 // armazenam os digitos verificadores 1 e 2 para comparar ao cpf
+int verificaCPF(char cpf[])
+{
+    int i, j;                   // contador
+    int d1 = 0, d2 = 0;         // armazenam os digitos verificadores 1 e 2 para comparar ao cpf
     int soma1 = 0, soma2 = 0;   // guardam a soma entre os digitos do cpf com seus respectivos pesos
     int peso1 = 10, peso2 = 11; // necessarios para a atribuição de pesos para os digitos
 
-    for (i = 0; i < 9; i++) {
-        soma1 += cpf[i] * peso1;
-        peso1--;
+    if (strlen(cpf) != 11)
+    {
+        return 0;
     }
-
-    d1 = (soma1 % 11 < 2) ? 0 : 11 - (soma1 % 11);
-
-    if (cpf[9] != d1) {
-        return 1;
+    else if ((strcmp(cpf, "00000000000") == 0) || (strcmp(cpf, "11111111111") == 0) || (strcmp(cpf, "22222222222") == 0) ||
+             (strcmp(cpf, "33333333333") == 0) || (strcmp(cpf, "44444444444") == 0) || (strcmp(cpf, "55555555555") == 0) ||
+             (strcmp(cpf, "66666666666") == 0) || (strcmp(cpf, "77777777777") == 0) || (strcmp(cpf, "88888888888") == 0) ||
+             (strcmp(cpf, "99999999999") == 0)) // excluindo cpf's com numeros iguais, que passam batido pela verificação
+    {
+        return 0;
     }
+    else
+    {
+        for (i = 0, j = 10; i < 9; i++, j--)
+        {
+            d1 += (cpf[i] - 48) * j; // como cpf é char, o 48 faz a conversao para tabela ascii
+        }
 
-    soma2 = 0;
-    peso2 = 11;
+        d1 %= 11; // d1 = d1 % 11
 
-    for (i = 0; i < 10; i++) {
-        soma2 += cpf[i] * peso2;
-        peso2--;
+        if (d1 < 2) {
+            d1 = 0;
+        }
+        else {
+            d1 = 11 - d1;
+        }
+
+        if ((cpf[9] - 48) != d1) {
+            return 0;
+        }
+        else
+        {
+            for (i = 0, j = 11; i < 10; i++, j--) {
+                d2 += (cpf[i] - 48) * j;
+            }
+
+            d2 %= 11;
+
+            if (d2 < 2) {
+                d2 = 0;
+            }
+            else {
+                d2 = 11 - d2;
+            }
+            if ((cpf[10] - 48) != d2)
+                return 0;
+        }
     }
-
-    d2 = (soma2 % 11 < 2) ? 0 : 11 - (soma2 % 11);
-
-    return (cpf[10] != d2); // se for incorreto, vai retornar 1 e se for correto, 0
+    return 1;
 }
-
-
-
 
 // ==== Verificador cpf daqui para cima ====
 
@@ -165,37 +171,31 @@ struct app
     char email_usado[100]; // email usado no dado app
     char user_usado[20];   // nome de usuário usado
     char senha_usada[100];
-    char cpf[11];
+    int id;
 };
 
 void adicionarApp(struct cadastro *u) {
-    struct app *a = (struct app *)malloc(sizeof(struct app));
-
-    if (a == NULL) {
-        printf("\nerro na alocação\n");
-        return;
-    }
-
+    struct app a;
     int respSenha;  
 
 
     printf("Nome do site/jogo/app: ");
-    scanf("%s", a->site);
+    scanf("%s", a.site);
     printf("Email usado: ");
-    scanf("%s", a->email_usado);
+    scanf("%s", a.email_usado);
     printf("Nome de usuario (caso nao exista coloque seu primeiro nome): ");
-    scanf("%s", a->user_usado);
+    scanf("%s", a.user_usado);
     printf("Deseja gerar uma senha aleatoria? (0 - Não, 1 - Sim): ");    
     scanf("%d", &respSenha);
     
     if (respSenha == 1) {
-        gerarSenha(a->senha_usada, 10); 
+        gerarSenha(a.senha_usada, 10); 
     } else {
         printf("Senha: ");
-        scanf("%s", a->senha_usada);
+        scanf("%s", a.senha_usada);
     }
     
-    strcpy(a->cpf, u->cpf);
+    a.id = u->id;
     
     
     FILE * arq = fopen("inforSite.txt", "a");
@@ -205,7 +205,7 @@ void adicionarApp(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%s %s %s %s %s \n", a->site, a->email_usado, a->user_usado, a->senha_usada, a->cpf );
+    fprintf(arq, "%s %s %s %s %i \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.id );
     fclose(arq);
     
     printf("Informações do site/senha adicionadas com sucesso!\n");
@@ -262,13 +262,28 @@ void listarSitesUsuario(struct cadastro *u)
         return;
     };
 
+    printf("Lista de Apps/Sites cadastrados para o usuário:\n\n");
+
+    while (fscanf(arq, "%s %s %s %s %i", a.site, a.email_usado, a.user_usado, a.senha_usada, &a.id) != EOF)
+    {
+        // Verificar se o ID no arquivo corresponde ao ID do usuário logado
+        if (a.id == u->id) 
+        {
+            printf("Site: %s\n", a.site);
+            printf("Email usado: %s\n", a.email_usado);
+            printf("Nome de usuário: %s\n", a.user_usado);
+            printf("Senha: %s\n", a.senha_usada);
+            printf("---------------------------\n");
+        }
+    }
+
 
     
 
     fclose(arq);    
 
-}
-;
+};
+
 // ==== Codigo para Listar os APPS do USER daqui para cima ====
 
 
@@ -295,7 +310,6 @@ void listarSitesUsuario(struct cadastro *u)
 
 
 // ==== Codigo para Consultar Cliente daqui para cima ====
-
 
 
 
