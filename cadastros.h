@@ -70,7 +70,7 @@ void registrarCadastro(struct cadastro *u) {
 int login(struct cadastro *u) {
     system("cls");
     
-    printf("Nome de usuário: ");
+    printf("Nome de usuario: ");
     scanf("%s", u->username);
     printf("Senha: ");
     scanf("%s", u->senha);
