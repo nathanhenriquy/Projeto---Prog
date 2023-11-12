@@ -18,7 +18,7 @@ int main()
 
     while (1)
     {
-        system("cls");
+        //system("cls");
 
         telaMenu();
         scanf("%d", &escolha);
@@ -28,7 +28,7 @@ int main()
         case 1:
             if (login(&u))// aqui vai ser a parte de login
             {
-                system("cls");
+                //system("cls");
                 printf("Login bem-sucedido!\n");
                 while (1)
                 {
@@ -54,7 +54,7 @@ int main()
                     {
                         break;
                     }
-                    system("cls");
+                    //system("cls");
                 }
             }
             else
