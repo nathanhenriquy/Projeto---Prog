@@ -72,7 +72,7 @@ void registrarCadastro(struct cadastro *u) {
         scanf("%lld", &cpf);
 
         u->cpf = cpf; // passando a variavel local para a struct, evitando erros
-        
+
         sprintf(temp, "%lld", cpf);
     } while (verificaCPF(temp) == 0);
 
@@ -158,8 +158,6 @@ int verificaCPF(char cpf[])
 {
     int i, j;                   // contador
     int d1 = 0, d2 = 0;         // armazenam os digitos verificadores 1 e 2 para comparar ao cpf
-    int soma1 = 0, soma2 = 0;   // guardam a soma entre os digitos do cpf com seus respectivos pesos
-    int peso1 = 10, peso2 = 11; // necessarios para a atribuição de pesos para os digitos
 
     if (strlen(cpf) != 11)
     {
@@ -226,47 +224,56 @@ struct app
     int id;
 };
 
-void adicionarApp(struct cadastro *u) {
+void adicionarApp(struct cadastro *u) 
+{
     system("cls");  
-    struct app a;
+    struct app *a = (struct app *)malloc(sizeof(struct app));
+
+    if (a == NULL) {
+        printf("\nfalha na alocação de memoria\n");
+        return;
+    }
     int respSenha;  
 
 
     printf("Nome do site/jogo/app: ");
-    scanf("%s", a.site);
+    scanf("%s", a->site);
     printf("Email usado: ");
-    scanf("%s", a.email_usado);
+    scanf("%s", a->email_usado);
     printf("Nome de usuario (caso nao exista coloque seu primeiro nome): ");
-    scanf("%s", a.user_usado);
+    scanf("%s", a->user_usado);
     printf("Deseja gerar uma senha aleatoria? (0 - Não, 1 - Sim): ");    
     scanf("%d", &respSenha);
     
     if (respSenha == 1) {
-        gerarSenha(a.senha_usada, 10); 
+        gerarSenha(a->senha_usada, 10); 
     } else {
         printf("Senha: ");
-        scanf("%s", a.senha_usada);
+        scanf("%s", a->senha_usada);
     }
     
-    a.id = u->id;
+    a->id = u->id;
     
     
     FILE * arq = fopen("inforSite.txt", "a");
 
     if (arq == NULL) {
         printf("Erro ao abrir o arquivo.\n");
+        free(a);
         return;
     }
     
-    fprintf(arq, "%s %s %s %s %i \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.id );
+    fprintf(arq, "%s %s %s %s %i \n", a->site, a->email_usado, a->user_usado, a->senha_usada, a->id );
     fclose(arq);
+
+    free(a);
     
     printf("Informações do site/senha adicionadas com sucesso!\n");
 }
 
 // ==== Gerador de senhas ====
 
-void gerarSenha(char senha[], int n)
+void gerarSenha(char *senha[], int n)
 {
     srand(time(NULL));
 
@@ -281,21 +288,21 @@ void gerarSenha(char senha[], int n)
         switch (categoria)
         {
         case 0:
-            senha[i] = numeros[rand() % 10];
+            *senha[i] = numeros[rand() % 10];
             break;
         case 1:
-            senha[i] = letrasMinusculas[rand() % 26];
+            *senha[i] = letrasMinusculas[rand() % 26];
             break;
         case 2:
-            senha[i] = letrasMaiusculas[rand() % 26];
+            *senha[i] = letrasMaiusculas[rand() % 26];
             break;
         case 3:
-            senha[i] = simbolos[rand() % 6];
+            *senha[i] = simbolos[rand() % 6];
             break;
         }
     }
 
-    senha[n] = '\0';
+    *senha[n] = '\0';
 
 };
 
