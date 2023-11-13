@@ -44,7 +44,7 @@ int carregarUltimoId() {
 void registrarCadastro(struct cadastro *u) {
     system("cls");
     long long int cpf;
-    char temp[22]; /u será usado apenas para ser passado por parametro
+    char temp[22]; //u será usado apenas para ser passado por parametro
 
     
 
