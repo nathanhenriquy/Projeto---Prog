@@ -446,9 +446,8 @@ void listarCliente() {
            } 
 
            for (int i = 0; i < count; i++){ 
-            printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %s\n, Telefone: %s\n, 
-                Email: %s\n, Nome de usuario: %s\n, Senha: %s \n", cliente[i].id, cliente[i].nome, cliente[i].dia, 
-                cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha); 
+            printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %lld\n, Telefone: %s\n, Email: %s\n, Nome de usuario: %s\n, Senha: %s \n", cliente[i].id, cliente[i].nome, cliente[i].dia, cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha);
+
            } 
 
            free(cliente);  
