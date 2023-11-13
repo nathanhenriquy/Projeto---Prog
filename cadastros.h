@@ -23,7 +23,7 @@ void salvarUltimoId(int ultimoId) {
         fprintf(arq, "%d", ultimoId);
         fclose(arq);
     } else {
-        printf("Erro ao salvar o último ID.\n");
+        printf("Erro ao salvar o ultimo ID.\n");
     }
 }
 
@@ -59,13 +59,13 @@ void registrarCadastro(struct cadastro *u) {
     printf("Digite sua data de nascimento:\n");
     printf("Dia (2 digitos): ");
     scanf("%i", &u->dia);
-    printf("Mes (1 digito até o 9): ");
+    printf("Mes (2 digito): ");
     scanf("%i", &u->mes);
     printf("Ano (4 digitos): ");
     scanf("%i", &u->ano);
 
         if (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023) {
-            printf("Data de nascimento invalida. Por favor, insira uma data valida.\n");
+            printf("\nData de nascimento invalida. Por favor, insira uma data valida.\n");
         }
     } while (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023);
 
@@ -85,7 +85,7 @@ void registrarCadastro(struct cadastro *u) {
     fflush(stdin);
 
         if (strlen(u->tel) != 11) {
-            printf("Formato de telefone invalido. O telefone deve ter 11 digitos. Por favor, corrija.\n");
+            printf("\nFormato de telefone invalido. O telefone deve ter 11 digitos. Por favor, corrija.\n");
         }
         
     } while (strlen(u->tel) != 11);
@@ -321,7 +321,7 @@ void listarSitesUsuario(struct cadastro *u)
         return;
     };
 
-    printf("Lista de Apps/Sites cadastrados para o usuário:\n\n");
+    printf("Lista de Apps/Sites cadastrados para o usuario:\n\n");
 
     while (fscanf(arq, "%s %s %s %s %i", a->site, a->email_usado, a->user_usado, a->senha_usada, &a->id) != EOF)
     {
@@ -330,7 +330,7 @@ void listarSitesUsuario(struct cadastro *u)
         {
             printf("Site: %s\n", a->site);
             printf("Email usado: %s\n", a->email_usado);
-            printf("Nome de usuário: %s\n", a->user_usado);
+            printf("Nome de usuario: %s\n", a->user_usado);
             printf("Senha: %s\n", a->senha_usada);
             printf("---------------------------\n");
         }
@@ -461,7 +461,7 @@ void buscarPorCPF(struct cadastro *u) {
     
     FILE *arquivo = fopen("usuarios.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo de usuários.\n");
+        printf("Erro ao abrir o arquivo de usuarios.\n");
         return;
     }
     
@@ -487,7 +487,7 @@ void buscarPorCPF(struct cadastro *u) {
     
     if (!encontrado) {
         system("cls");
-        printf("Usuário com CPF %lld não encontrado.\n", buscaCPF);
+        printf("Usuário com CPF %lld nao encontrado.\n", buscaCPF);
     }
 }
 

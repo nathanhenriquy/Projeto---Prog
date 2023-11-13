@@ -47,7 +47,7 @@ int main()
                         printf("Retornando ao menu principal...\n");
                         break;
                     default:
-                        printf("Opção inválida. Tente novamente.\n");
+                        printf("Opção invalida. Tente novamente.\n");
                     }
 
                     if (escolha == 3)
@@ -59,7 +59,7 @@ int main()
             }
             else
             {
-                printf("Login falhou. Verifique o nome de usuário e senha.\n");
+                printf("Login falhou. Verifique o nome de usuario e senha.\n");
             }
             break;
 
@@ -88,7 +88,7 @@ int main()
                     printf("Retornando ao menu principal...\n");
                     break;
                 default:
-                    printf("Opção inválida. Tente novamente.\n");
+                    printf("Opção invalida. Tente novamente.\n");
                 }
 
                 if (escolha == 4)
@@ -102,7 +102,7 @@ int main()
             printf("Saindo...\n");
             exit(0);
         default:
-            printf("Opção inválida. Tente novamente.\n");
+            printf("Opção invalida. Tente novamente.\n");
         }
     }
 
