@@ -367,11 +367,11 @@ void removerCliente(int id){
     struct cadastro cliente; 
     int encontrado = 0; 
 
-    while (fscanf(arq, "%i %s %i %i %i %s %s %s %s %s", &cliente.id, cliente.nome, 
-        &cliente.dia, &cliente.mes, &cliente.ano, cliente.cpf, cliente.te, cliente.email, 
+    while (fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s", &cliente.id, cliente.nome, 
+        &cliente.dia, &cliente.mes, &cliente.ano, &cliente.cpf, cliente.tel, cliente.email, 
         cliente.username, cliente.senha) != EOF){ 
             if (cliente.id != id){ 
-                fprintf(tempFile, "%i %s %i %i %i %s %s %s %s %s\n", cliente.id, cliente.nome, 
+                fprintf(tempFile, "%i %s %i %i %i %lld %s %s %s %s\n", cliente.id, cliente.nome, 
                 cliente.dia, cliente.mes, cliente.ano, cliente.cpf, cliente.tel, cliente.email, 
                 cliente.username, cliente.senha); // verifica se o ID do cliente é diferente do ID informado pelo usuário
             } else{ 
@@ -413,6 +413,7 @@ void bubbleSort(struct cadastro *arr, int n){
 
 void listarCliente() { 
     FILE *arq = fopen("usuarios.txt", "r"); 
+
     if (arq == NULL) { 
         printf("Erro ao abrir o arquivo.\n"); 
         return;
@@ -428,8 +429,7 @@ void listarCliente() {
         return; 
     } 
 
-    while (count < maxClietes && 
-            fscanf(arq, "%d %s %d %d %d %s %s %s %s %s", &cliente[count].id, cliente[count].nome,
+    while (count < maxClientes && fscanf(arq, "%d %s %d %d %d %s %s %s %s %s", &cliente[count].id, cliente[count].nome,
             &cliente[count].dia, &cliente[count].mes, &cliente[count].ano, cliente[count].cpf, 
             cliente[count].tel, cliente[count].email, cliente[count].username, cliente[count].senha) ==10){ 
                 count++; 
@@ -447,7 +447,7 @@ void listarCliente() {
 
            for (int i = 0; i < count; i++){ 
             printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %s\n, Telefone: %s\n, 
-                Email: %s\n, Nome de usuario: %s\n, Senha: %s\n", cliente[i].id, cliente[i].nome, cliente[i].dia, 
+                Email: %s\n, Nome de usuario: %s\n, Senha: %s \n", cliente[i].id, cliente[i].nome, cliente[i].dia, 
                 cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha); 
            } 
 
