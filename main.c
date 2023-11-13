@@ -82,7 +82,7 @@ int main()
                     //  listar 
                     break;
                 case 3:
-                   // consultar pelo cpf
+                    buscarPorCPF(&u);// consultar pelo cpf
                     break;
                 case 4:
                     printf("Retornando ao menu principal...\n");
