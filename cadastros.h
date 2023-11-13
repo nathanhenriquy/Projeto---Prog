@@ -44,36 +44,36 @@ int carregarUltimoId() {
 void registrarCadastro(struct cadastro *u) {
     system("cls");
     long long int cpf;
-    char temp[22]; // será usado apenas para ser passado por parametro
+    char temp[22]; /u será usado apenas para ser passado por parametro
 
-    struct cadastro *c = (struct cadastro *)malloc(sizeof(struct cadastro));
+    
 
     int pxId = carregarUltimoId();
-    c->id = pxId++; // aq é para somar o proximo id
+    u->id = pxId++; // aq é para somar o proximo id
     printf("Digite seu nome completo: ");
     fflush(stdin);
-    gets(c->nome);
+    gets(u->nome);
     fflush(stdin);
 
     do {
     printf("Digite sua data de nascimento:\n");
     printf("Dia (2 digitos): ");
-    scanf("%i", &c->dia);
+    scanf("%i", &u->dia);
     printf("Mes (1 digito até o 9): ");
-    scanf("%i", &c->mes);
+    scanf("%i", &u->mes);
     printf("Ano (4 digitos): ");
-    scanf("%i", &c->ano);
+    scanf("%i", &u->ano);
 
-        if (c->dia < 1 || c->dia > 31 || c->mes < 1 || c->mes > 12 || c->ano < 1900 || c->ano > 2023) {
+        if (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023) {
             printf("Data de nascimento invalida. Por favor, insira uma data valida.\n");
         }
-    } while (c->dia < 1 || c->dia > 31 || c->mes < 1 || c->mes > 12 || c->ano < 1900 || c->ano > 2023);
+    } while (u->dia < 1 || u->dia > 31 || u->mes < 1 || u->mes > 12 || u->ano < 1900 || u->ano > 2023);
 
     do {
         printf("Digite seu CPF: ");
         scanf("%lld", &cpf);
 
-        c->cpf = cpf; // passando a variavel local para a struct, evitando erros
+        u->cpf = cpf; // passando a variavel local para a struct, evitando erros
 
         sprintf(temp, "%lld", cpf);
     } while (verificaCPF(temp) == 0);
@@ -81,23 +81,23 @@ void registrarCadastro(struct cadastro *u) {
     do {
     printf("Digite seu telefone (sem espaços, com DDD): ");
     fflush(stdin);
-    gets(c->tel);
+    gets(u->tel);
     fflush(stdin);
 
-        if (strlen(c->tel) != 11) {
+        if (strlen(u->tel) != 11) {
             printf("Formato de telefone invalido. O telefone deve ter 11 digitos. Por favor, corrija.\n");
         }
         
-    } while (strlen(c->tel) != 11);
+    } while (strlen(u->tel) != 11);
 
     printf("Digite seu email: ");
-    scanf("%s", c->email);
+    scanf("%s", u->email);
 
     printf("Digite um username para entrar no Gerenciador: ");
-    scanf("%s", c->username);
+    scanf("%s", u->username);
 
     printf("Digite uma senha para entrar no Gerenciador: ");
-    scanf("%s", c->senha); // usando seta pois estou passando um ponteiro para estrutura
+    scanf("%s", u->senha); // usando seta pois estou passando um ponteiro para estrutura
 
     
     FILE * arq = fopen("usuarios.txt", "a");
@@ -107,7 +107,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s\n", c->id, c->nome,c->dia, c->mes,c->ano, c->cpf, c->tel, c->email, c->username, c->senha); 
+    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
     fclose(arq);
 
     salvarUltimoId(pxId);
@@ -229,47 +229,43 @@ struct app
 void adicionarApp(struct cadastro *u) 
 {
     system("cls");  
-    struct app *a = (struct app *)malloc(sizeof(struct app));
+    struct app a;
 
-    if (a == NULL) {
-        printf("\nfalha na alocação de memoria\n");
-        return;
-    }
+    
     int respSenha;  
 
 
     printf("Nome do site/jogo/app: ");
-    scanf("%s", a->site);
+    scanf("%s", a.site);
     printf("Email usado: ");
-    scanf("%s", a->email_usado);
+    scanf("%s", a.email_usado);
     printf("Nome de usuario (caso nao exista coloque seu primeiro nome): ");
-    scanf("%s", a->user_usado);
+    scanf("%s", a.user_usado);
     printf("Deseja gerar uma senha aleatoria? (0 - Não, 1 - Sim): ");    
     scanf("%d", &respSenha);
     
     if (respSenha == 1) {
-        gerarSenha(a->senha_usada, 10); 
+        gerarSenha(a.senha_usada, 10); 
     } else {
         printf("Senha: ");
-        scanf("%s", a->senha_usada);
+        scanf("%s", a.senha_usada);
     }
     
-    a->id = u->id;
+    a.id = u->id;
     
     
     FILE * arq = fopen("inforSite.txt", "a");
 
     if (arq == NULL) {
         printf("Erro ao abrir o arquivo.\n");
-        free(a);
+        
         return;
     }
     
-    fprintf(arq, "%s %s %s %s %i \n", a->site, a->email_usado, a->user_usado, a->senha_usada, a->id );
+    fprintf(arq, "%s %s %s %s %i \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.id );
     fclose(arq);
 
-    free(a);
-    
+ 
     printf("Informações do site/senha adicionadas com sucesso!\n");
 }
 
