@@ -275,7 +275,7 @@ void adicionarApp(struct cadastro *u)
 
 // ==== Gerador de senhas ====
 
-void gerarSenha(char *senha[], int n)
+void gerarSenha(char* senha, int n)
 {
     srand(time(NULL));
 
@@ -290,21 +290,21 @@ void gerarSenha(char *senha[], int n)
         switch (categoria)
         {
         case 0:
-            *senha[i] = numeros[rand() % 10];
+            senha[i] = numeros[rand() % 10];
             break;
         case 1:
-            *senha[i] = letrasMinusculas[rand() % 26];
+            senha[i] = letrasMinusculas[rand() % 26];
             break;
         case 2:
-            *senha[i] = letrasMaiusculas[rand() % 26];
+            senha[i] = letrasMaiusculas[rand() % 26];
             break;
         case 3:
-            *senha[i] = simbolos[rand() % 6];
+            senha[i] = simbolos[rand() % 6];
             break;
         }
     }
 
-    *senha[n] = '\0';
+    senha[n] = '\0';
 
 };
 
