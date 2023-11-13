@@ -397,24 +397,62 @@ void removerCliente(int id){
 
 // ==== Codigo para Listar CLiente daqui para baixo ====
 
-void listarCliente(){ 
+void bubbleSort(struct cadastro *arr, int n){ 
+    int i, j; 
+    struct cadastro temp; 
+    for (i = 0; i < n - 1; i++) { 
+        for (j = 0; j < n - i - 1; j++){ 
+            if (strcmp(arr[j].nome, arr[j + 1].nome) > 0){ 
+                temp = arr[j]; 
+                arr[j] = arr[j + 1]; 
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void listarCliente() { 
     FILE *arq = fopen("usuarios.txt", "r"); 
-    if(arq == NULL){ 
+    if (arq == NULL) { 
         printf("Erro ao abrir o arquivo.\n"); 
+        return;
+    } 
+
+    int maxClientes = 100; 
+    struct cadastro *cliente = malloc(maxClientes * sizeof(struct cadastro)); 
+    int count = 0; 
+
+    if (cliente == NULL){ 
+        printf("Erro ao alocar memória.\n"); 
+        fclose(arq); 
         return; 
     } 
 
-    struct cadastro cliente; 
+    while (count < maxClietes && 
+            fscanf(arq, "%d %s %d %d %d %s %s %s %s %s", &cliente[count].id, cliente[count].nome,
+            &cliente[count].dia, &cliente[count].mes, &cliente[count].ano, cliente[count].cpf, 
+            cliente[count].tel, cliente[count].email, cliente[count].username, cliente[count].senha) ==10){ 
+                count++; 
+            } 
 
-    while( fscanf(arq, "%i %s %i %i %i %s %s %s %s %s", &cliente.id, cliente.nome, &cliente.dia, &cliente.mes, 
-        &cliente.ano, cliente.cpf, cliente.tel, cliente.email, cliente.username, cliente.senha) ! = EOF){ 
-            printf("ID: %i\n, Nome: %s\n, Data de Nascimento: %i/%i/%i\n, CPF: %s\n, Telefone: %s\n, Email: %s\n, 
-                Username: %s\n, Senha: %s\n", cliente.id, cliente.nome, clinte.dia, cliente.mes, cliente.ano, cliente.cpf, 
-                cliente.tel, cliente.email, cliente.username, cliente.senha); // Lista dados do arquivo
-        } 
-        fclose(arq);
+            fclose(arq); 
+           
+           printf("Você gostaria de listar em ordem alfabetica ou por ordem de ID? (1 para alfabetica , 2 para ID): "); 
+           int ordem; 
+           scanf("%d", &ordem); 
+
+           if(ordem == 1){ 
+            bubbleSort(cliente, count); 
+           } 
+
+           for (int i = 0; i < count; i++){ 
+            printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %s\n, Telefone: %s\n, 
+                Email: %s\n, Nome de usuario: %s\n, Senha: %s\n", cliente[i].id, cliente[i].nome, cliente[i].dia, 
+                cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha); 
+           } 
+
+           free(cliente);  
 }
-
 // ==== Codigo para Listar CLiente daqui para cima ====
 
 
