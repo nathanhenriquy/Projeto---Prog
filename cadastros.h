@@ -397,7 +397,23 @@ void removerCliente(int id){
 
 // ==== Codigo para Listar CLiente daqui para baixo ====
 
+void listarCliente(){ 
+    FILE *arq = fopen("usuarios.txt", "r"); 
+    if(arq == NULL){ 
+        printf("Erro ao abrir o arquivo.\n"); 
+        return; 
+    } 
 
+    struct cadastro cliente; 
+
+    while( fscanf(arq, "%i %s %i %i %i %s %s %s %s %s", &cliente.id, cliente.nome, &cliente.dia, &cliente.mes, 
+        &cliente.ano, cliente.cpf, cliente.tel, cliente.email, cliente.username, cliente.senha) ! = EOF){ 
+            printf("ID: %i\n, Nome: %s\n, Data de Nascimento: %i/%i/%i\n, CPF: %s\n, Telefone: %s\n, Email: %s\n, 
+                Username: %s\n, Senha: %s\n", cliente.id, cliente.nome, clinte.dia, cliente.mes, cliente.ano, cliente.cpf, 
+                cliente.tel, cliente.email, cliente.username, cliente.senha); // Lista dados do arquivo
+        } 
+        fclose(arq);
+}
 
 // ==== Codigo para Listar CLiente daqui para cima ====
 
