@@ -453,6 +453,44 @@ void listarCliente() {
 
 // ==== Codigo para Consultar Cliente daqui para baixo ====
 
+void buscarPorCPF(struct cadastro *u) {
+    long long int buscaCPF;
+    
+    printf("Digite o CPF a ser pesquisado: ");
+    scanf("%lld", &buscaCPF);
+    
+    FILE *arquivo = fopen("usuarios.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de usuários.\n");
+        return;
+    }
+    
+    int encontrado = 0;  
+    
+    while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha) != EOF) {
+        if (u->cpf == buscaCPF) {
+            system("cls");
+            printf("ID: %i\n", u->id);
+            printf("Nome: %s\n", u->nome);
+            printf("Data de Nascimento: %i/%i/%i\n", u->dia, u->mes, u->ano);
+            printf("CPF: %lld\n", u->cpf);
+            printf("Telefone: %s\n", u->tel);
+            printf("Email: %s\n", u->email);
+            printf("Username: %s\n", u->username);
+            printf("Senha: %s\n", u->senha);
+            encontrado = 1; 
+            break;
+        }
+    }
+    
+    fclose(arquivo);
+    
+    if (!encontrado) {
+        system("cls");
+        printf("Usuário com CPF %lld não encontrado.\n", buscaCPF);
+    }
+}
+
 
 
 // ==== Codigo para Consultar Cliente daqui para cima ====
