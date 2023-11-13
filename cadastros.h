@@ -351,7 +351,7 @@ void listarSitesUsuario(struct cadastro *u)
 
 
 // ==== Codigo para Remover Cliente daqui para baixo ====
-
+/*
 void removerCliente(int id){ 
     FILE *arq = fopen("usuarios.txt", "r"); 
     FILE *tempFile = fopen("tempFile.txt", "w"); // Abertura do arquivo temporário 
@@ -387,12 +387,12 @@ void removerCliente(int id){
             remove("tempFile.txt"); // Remove arquivo temporário se o cliente não foi encontrado
         }
 }
-
+*/
 // ==== Codigo para Remover Cliente daqui para cima ====
 
 
 // ==== Codigo para Listar CLiente daqui para baixo ====
-
+/*
 void bubbleSort(struct cadastro *arr, int n){ 
     int i, j; 
     struct cadastro temp; 
@@ -447,7 +447,7 @@ void listarCliente() {
            } 
 
            free(cliente);  
-}
+}*/
 // ==== Codigo para Listar CLiente daqui para cima ====
 
 
