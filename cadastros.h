@@ -356,7 +356,41 @@ void listarSitesUsuario(struct cadastro *u)
 
 // ==== Codigo para Remover Cliente daqui para baixo ====
 
+void removerCliente(int id){ 
+    FILE *arq = fopen("usuarios.txt", "r"); 
+    FILE *tempFile = fopen("tempFile.txt", "w"); // Abertura do arquivo temporário 
+    if (arq == NULL || tempFile == NULL){ 
+        printf("Erro ao abrir os arquivos. \n"); 
+        return;
+    } 
 
+    struct cadastro cliente; 
+    int encontrado = 0; 
+
+    while (fscanf(arq, "%i %s %i %i %i %s %s %s %s %s", &cliente.id, cliente.nome, 
+        &cliente.dia, &cliente.mes, &cliente.ano, cliente.cpf, cliente.te, cliente.email, 
+        cliente.username, cliente.senha) != EOF){ 
+            if (cliente.id != id){ 
+                fprintf(tempFile, "%i %s %i %i %i %s %s %s %s %s\n", cliente.id, cliente.nome, 
+                cliente.dia, cliente.mes, cliente.ano, cliente.cpf, cliente.tel, cliente.email, 
+                cliente.username, cliente.senha); // verifica se o ID do cliente é diferente do ID informado pelo usuário
+            } else{ 
+                encontrado = 1; 
+            }
+        } 
+
+        fclose(arq); 
+        fclose(tempFile); 
+
+        if(encontrado){ 
+            remove("usuarios.txt"); 
+            rename("tempFile.txt", "usuarios.txt"); 
+            printf("Cliente removido com sucesso.\n"); // Se o cliente for encontrado, ele é removido arquivo
+        } else{ 
+            printf("Cliente não encontrado.\n"); 
+            remove("tempFile.txt"); // Remove arquivo temporário se o cliente não foi encontrado
+        }
+}
 
 // ==== Codigo para Remover Cliente daqui para cima ====
 
