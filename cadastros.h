@@ -49,7 +49,7 @@ void registrarCadastro(struct cadastro *u) {
     struct cadastro *c = (struct cadastro *)malloc(sizeof(struct cadastro));
 
     int pxId = carregarUltimoId();
-    u->id = pxId++; // aq é para somar o proximo id
+    c->id = pxId++; // aq é para somar o proximo id
     printf("Digite seu nome completo: ");
     fflush(stdin);
     gets(c->nome);
