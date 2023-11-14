@@ -76,10 +76,10 @@ int main()
                 switch (escolha)
                 {
                 case 1:
-                    //  remover usuário
+                    desativarPorCPF(&u);//  remover usuário
                     break;
                 case 2:
-                    //  listar 
+                    listarClientes(&u);//  listar 
                     break;
                 case 3:
                     buscarPorCPF(&u);// consultar pelo cpf
