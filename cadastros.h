@@ -15,6 +15,7 @@ struct cadastro
     char email[100];
     char username[20];
     char senha[30]; // senha para acessar sua conta no gerenciador de senhas
+    int status;
 };
 
 void salvarUltimoId(int ultimoId) {
@@ -45,7 +46,6 @@ void registrarCadastro(struct cadastro *u) {
     system("cls");
     long long int cpf;
     char temp[22]; //u será usado apenas para ser passado por parametro
-
     
 
     int pxId = carregarUltimoId();
@@ -99,6 +99,8 @@ void registrarCadastro(struct cadastro *u) {
     printf("Digite uma senha para entrar no Gerenciador: ");
     scanf("%s", u->senha); // usando seta pois estou passando um ponteiro para estrutura
 
+    u->status = 1; 
+
     
     FILE * arq = fopen("usuarios.txt", "a");
 
@@ -107,7 +109,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha); 
+    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s %i \n\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status); 
     fclose(arq);
 
     salvarUltimoId(pxId);
@@ -138,7 +140,7 @@ int login(struct cadastro *u) {
 
     struct cadastro usuarioTemp; // vai armazenar nesta variavel as informações lidas do arq para comparar
 
-    while (fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s", &usuarioTemp.id, usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, &usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha) != EOF) {
+    while (fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s %i", &usuarioTemp.id, usuarioTemp.nome, &usuarioTemp.dia, &usuarioTemp.mes, &usuarioTemp.ano, &usuarioTemp.cpf, usuarioTemp.tel, usuarioTemp.email, usuarioTemp.username, usuarioTemp.senha, &u->status) != EOF) {
         if (strcmp(u->username, usuarioTemp.username) == 0 && strcmp(u->senha, usuarioTemp.senha) == 0) {
 
             fclose(arq);
@@ -348,124 +350,149 @@ void listarSitesUsuario(struct cadastro *u)
 
 
 
-
-
 // ==== Codigo para Remover Cliente daqui para baixo ====
 
-void removerCliente(long long int cpf); 
+void desativarPorCPF(struct cadastro *u) {
+    long long int buscaCPF;
+    
+    printf("Digite o CPF que quer desativar: ");
+    scanf("%lld", &buscaCPF);
+    
+    FILE *arquivo = fopen("usuarios.txt", "r");
+    FILE *arqTemp = fopen("usuarios_temp.txt", "w");
 
-int main(){ 
-   long long int cpfRemovido; 
-
-    printf("Informe o CPF do cliente que deseja remover: "); 
-    scanf("%lld", &cpfRemovido); 
-
-    removerCliente(cpfRemovido); 
-
-    return 0; 
-} 
-
-void removerCliente(long long int cpf){ 
-    FILE *arq = fopen("usuarios.txt", "r"); 
-    FILE *tempFile = fopen("tempFile.txt", "w"); 
-
-    if (arq == NULL || tempFile == NULL){ 
-        printf("Erro ao abrir os arquivos.\n"); 
-        return; 
-    } 
-
-    struct cadastro cliente; 
-    int encontrado = 0; 
-
-    while(fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s", &cliente.id, cliente.nome, &cliente.dia, 
-    &cliente.mes, &cliente.ano, &cliente.cpf, cliente.tel, cliente.email, cliente.username, cliente.senha) != EOF) { 
-        if (cliente.cpf != cpf){ 
-            fprintf(tempFile, "%i %s %i %i %i %lld %s %s %s %s\n", cliente.id, cliente.nome, cliente.mes, cliente.ano, cliente.cpf, 
-            cliente.tel, cliente.email, cliente.username, cliente.senha);
-        } else{ 
-            encontrado = 1;
-        }
-    }   
-
-    fclose(arq); 
-    fclose(tempFile); 
-
-    if (encontrado){ 
-        remove("usuarios.txt"); 
-        rename("tempFile.txt", "usuarios.txt"); 
-        printf("Cliente removido com sucesso. \n"); 
-    } else{ 
-        printf("Cliente não encontrado. \n"); 
-        remove("tempFile.txt");
+    if (arquivo == NULL || arqTemp == NULL) {
+        printf("Erro ao abrir os arquivos.\n");
+        return;
     }
+    
+    int encontrado = 0;  
+    
+    while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha, &u->status) != EOF) {
+        if (u->cpf == buscaCPF) {
+            system("cls");
+
+            printf("ID: %i\n", u->id);
+            printf("Nome: %s\n", u->nome);
+            printf("Data de Nascimento: %i/%i/%i\n", u->dia, u->mes, u->ano);
+            printf("CPF: %lld\n", u->cpf);  
+            printf("Telefone: %s\n", u->tel);
+            printf("Email: %s\n", u->email);
+            printf("Username: %s\n", u->username);
+            printf("Senha: %s\n", u->senha);
+
+            int resp;
+            printf("\nTem certeza que deseja desativar esta conta? (Digite '1' para Sim, '0' para Não): ");            
+            scanf("%d", &resp);
+
+            if (resp == 1) {
+                u->status = 0;                
+                fprintf(arqTemp, "%i %s %i %i %i %lld %s %s %s %s %i\n", u->id, u->nome, u->dia, u->mes, u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status);
+                printf("Conta desativada com sucesso!\n");
+            } else {
+                fprintf(arqTemp, "%i %s %i %i %i %lld %s %s %s %s %i\n", u->id, u->nome, u->dia, u->mes, u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status);
+                printf("Operacao cancelada. A conta nao foi desativada.\n");
+            }
+
+            encontrado = 1; 
+        } else {
+            fprintf(arqTemp, "%i %s %i %i %i %lld %s %s %s %s %i\n", u->id, u->nome, u->dia, u->mes, u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status);
+        }
+    }
+
+    if (!encontrado) {
+        printf("Usuario nao encontrado.\n");
+    }
+
+    fclose(arquivo);
+    fclose(arqTemp);
+
+    remove("usuarios.txt");
+    rename("usuarios_temp.txt", "usuarios.txt");
 }
+
+
+
 
 // ==== Codigo para Remover Cliente daqui para cima ====
 
 
 // ==== Codigo para Listar CLiente daqui para baixo ====
 
-void bubbleSort(struct cadastro *arr, int n){ 
-    int i, j; 
-    struct cadastro temp; 
-    for (i = 0; i < n - 1; i++) { 
-        for (j = 0; j < n - i - 1; j++){ 
-            if (strcmp(arr[j].nome, arr[j + 1].nome) > 0){ 
-                temp = arr[j]; 
-                arr[j] = arr[j + 1]; 
-                arr[j + 1] = temp;
+void bubbleSort(struct cadastro *u, int count, int ordem) {
+    struct cadastro temp;
+
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - 1 - i; j++) {
+            if ((ordem == 1 && u[j].id > u[j + 1].id) || // ordenar por ID
+                (ordem == 2 && strcmp(u[j].nome, u[j + 1].nome) > 0)) { // ordenar por nome
+                temp = u[j];
+                u[j] = u[j + 1];
+                u[j + 1] = temp;
             }
         }
     }
 }
 
-void listarCliente() { 
-    FILE *arq = fopen("usuarios.txt", "r"); 
+void listarClientes(struct cadastro *u) {
+    system("cls");
 
-    if (arq == NULL) { 
-        printf("Erro ao abrir o arquivo.\n"); 
+    FILE *arquivo = fopen("usuarios.txt", "r");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de usuarios.\n");
         return;
-    } 
+    }
 
-    int maxClientes = 100; 
-    struct cadastro *cliente = malloc(maxClientes * sizeof(struct cadastro)); 
-    int count = 0; 
+    int ordem;
+    printf("Escolha a ordem de listagem:\n");
+    printf("1 - Por ID\n");
+    printf("2 - Em ordem alfabética\n");
+    scanf("%d", &ordem);
 
-    if (cliente == NULL){ 
-        printf("Erro ao alocar memória.\n"); 
-        fclose(arq); 
-        return; 
-    } 
+    if (ordem != 1 && ordem != 2) {
+        printf("Opção de ordem inválida.\n");
+        fclose(arquivo);
+        return;
+    }
 
-    while (count < maxClientes && fscanf(arq, "%d %s %d %d %d %lld %s %s %s %s", &cliente[count].id, cliente[count].nome,
-            &cliente[count].dia, &cliente[count].mes, &cliente[count].ano, &cliente[count].cpf, 
-            cliente[count].tel, cliente[count].email, cliente[count].username, cliente[count].senha) ==10){ 
-                count++;
-            }
-         
-            fclose(arq); 
-           
-           printf("Você gostaria de listar em ordem alfabetica ou por ordem de ID? (1 para alfabetica , 2 para ID): "); 
-           int ordem; 
-           scanf("%d", &ordem); 
+    
+    struct cadastro clientes[100]; // exemplo de 100 clientes
 
-           if(ordem == 1){ 
-            bubbleSort(cliente, count); 
-           } 
+    int count = 0;
 
-           for (int i = 0; i < count; i++){ 
-            printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %lld\n, Telefone: %s\n, Email: %s\n, Nome de usuario: %s\n, Senha: %s \n", 
-            cliente[i].id, cliente[i].nome, cliente[i].dia, cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha);
-           }
-         
+    do {
+        clientes[count++] = *u;
+    } while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha, &u->status) != EOF);
 
-    free(cliente);  
-}
-     
+    bubbleSort(clientes, count, ordem);
 
-int main(){ 
-    listarCliente(); 
-    return 0; 
+    if (ordem == 1) {
+        printf("Lista de clientes por ID:\n\n");
+    } else {
+        printf("Lista de clientes em ordem alfabética:\n\n");
+    }
+
+    for (int i = 0; i < count; i++) {
+        printf("ID: %d\n", clientes[i].id);
+        printf("Nome: %s\n", clientes[i].nome);
+        printf("Data de Nascimento: %d/%d/%d\n", clientes[i].dia, clientes[i].mes, clientes[i].ano);
+        printf("CPF: %lld\n", clientes[i].cpf);
+        printf("Telefone: %s\n", clientes[i].tel);
+        printf("Email: %s\n", clientes[i].email);
+        printf("Username: %s\n", clientes[i].username);
+        printf("Senha: %s\n", clientes[i].senha);
+
+        if (clientes[i].status == 0) {
+            printf("Status: Cliente desativado\n");
+        } else {
+            printf("Status: Cliente ativo\n");
+        }
+
+        printf("---------------------------\n");
+    }
+
+    fclose(arquivo);
 }
 
 // ==== Codigo para Listar CLiente daqui para cima ====
@@ -487,7 +514,7 @@ void buscarPorCPF(struct cadastro *u) {
     
     int encontrado = 0;  
     
-    while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha) != EOF) {
+    while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha, &u->status) != EOF) {
         if (u->cpf == buscaCPF) {
             system("cls");
             printf("ID: %i\n", u->id);
@@ -498,6 +525,13 @@ void buscarPorCPF(struct cadastro *u) {
             printf("Email: %s\n", u->email);
             printf("Username: %s\n", u->username);
             printf("Senha: %s\n", u->senha);
+            
+            if (u->status == 0) {
+                printf("Status: Cliente desativado\n");
+            } else {
+                printf("Status: Cliente ativo\n");
+            }
+
             encontrado = 1; 
             break;
         }
@@ -510,7 +544,6 @@ void buscarPorCPF(struct cadastro *u) {
         printf("Usuário com CPF %lld nao encontrado.\n", buscaCPF);
     }
 }
-
 
 
 // ==== Codigo para Consultar Cliente daqui para cima ====
