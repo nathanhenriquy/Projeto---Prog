@@ -113,8 +113,10 @@ void registrarCadastro(struct cadastro *u) {
     fclose(arq);
 
     salvarUltimoId(pxId);
+
+    system("cls");
     
-    printf("Usuario registrado!\n");
+    printf("Usuario registrado!\n\n");
 }
 
 
@@ -243,7 +245,7 @@ void adicionarApp(struct cadastro *u)
     scanf("%s", a.email_usado);
     printf("Nome de usuario (caso nao exista coloque seu primeiro nome): ");
     scanf("%s", a.user_usado);
-    printf("Deseja gerar uma senha aleatoria? (0 - Não, 1 - Sim): ");    
+    printf("Deseja gerar uma senha aleatoria? (0 - Nao, 1 - Sim): ");    
     scanf("%d", &respSenha);
     
     if (respSenha == 1) {
@@ -267,8 +269,9 @@ void adicionarApp(struct cadastro *u)
     fprintf(arq, "%s %s %s %s %i \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.id );
     fclose(arq);
 
- 
-    printf("Informações do site/senha adicionadas com sucesso!\n");
+    system("cls");
+
+    printf("Informacoes do site/senha adicionadas com sucesso!\n\n");
 }
 
 // ==== Gerador de senhas ====
@@ -382,7 +385,7 @@ void desativarPorCPF(struct cadastro *u) {
             printf("Senha: %s\n", u->senha);
 
             int resp;
-            printf("\nTem certeza que deseja desativar esta conta? (Digite '1' para Sim, '0' para Não): ");            
+            printf("\nTem certeza que deseja desativar esta conta? (Digite '1' para Sim, '0' para Nao): ");            
             scanf("%d", &resp);
 
             if (resp == 1) {
@@ -447,11 +450,11 @@ void listarClientes(struct cadastro *u) {
     int ordem;
     printf("Escolha a ordem de listagem:\n");
     printf("1 - Por ID\n");
-    printf("2 - Em ordem alfabética\n");
+    printf("2 - Em ordem alfabetica\n");
     scanf("%d", &ordem);
 
     if (ordem != 1 && ordem != 2) {
-        printf("Opção de ordem inválida.\n");
+        printf("Opção de ordem invalida.\n");
         fclose(arquivo);
         return;
     }
@@ -470,7 +473,7 @@ void listarClientes(struct cadastro *u) {
     if (ordem == 1) {
         printf("Lista de clientes por ID:\n\n");
     } else {
-        printf("Lista de clientes em ordem alfabética:\n\n");
+        printf("Lista de clientes em ordem alfabetica:\n\n");
     }
 
     for (int i = 0; i < count; i++) {
