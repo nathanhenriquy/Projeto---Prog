@@ -424,8 +424,8 @@ void bubbleSort(struct cadastro *u, int count, int ordem) {
 
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - 1 - i; j++) {
-            if ((ordem == 1 && u[j].id > u[j + 1].id) || // ordenar por ID
-                (ordem == 2 && strcmp(u[j].nome, u[j + 1].nome) > 0)) { // ordenar por nome
+            if ((ordem == 1 && u[j].id > u[j + 1].id) ||
+                (ordem == 2 && strcmp(u[j].nome, u[j + 1].nome) > 0)) {
                 temp = u[j];
                 u[j] = u[j + 1];
                 u[j + 1] = temp;
@@ -456,14 +456,12 @@ void listarClientes(struct cadastro *u) {
         return;
     }
 
-    
     struct cadastro clientes[100]; // exemplo de 100 clientes
-
     int count = 0;
 
-    do {
-        clientes[count++] = *u;
-    } while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha, &u->status) != EOF);
+    while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &clientes[count].id, clientes[count].nome, &clientes[count].dia, &clientes[count].mes, &clientes[count].ano, &clientes[count].cpf, clientes[count].tel, clientes[count].email, clientes[count].username, clientes[count].senha, &clientes[count].status) == 11) {
+        count++;
+        }
 
     bubbleSort(clientes, count, ordem);
 
@@ -494,6 +492,7 @@ void listarClientes(struct cadastro *u) {
 
     fclose(arquivo);
 }
+
 
 // ==== Codigo para Listar CLiente daqui para cima ====
 
