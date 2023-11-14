@@ -48,7 +48,7 @@ int main()
                         printf("Retornando ao menu principal...\n");
                         break;
                     default:
-                        printf("Opção invalida. Tente novamente.\n");
+                        printf("Opcao invalida. Tente novamente.\n");
                     }
 
                     if (escolha == 3)
