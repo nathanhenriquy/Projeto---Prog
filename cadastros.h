@@ -352,7 +352,7 @@ void listarSitesUsuario(struct cadastro *u)
 
 // ==== Codigo para Remover Cliente daqui para baixo ====
 
-void removerCliente(int long int cpf); 
+void removerCliente(long long int cpf); 
 
 int main(){ 
    long long int cpfRemovido; 
