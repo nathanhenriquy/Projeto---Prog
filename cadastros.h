@@ -469,7 +469,9 @@ void listarClientes(struct cadastro *u) {
 
     if (ordem == 1) {
         printf("Lista de clientes por ID:\n\n");
-    } else {
+    }
+
+    if (ordem == 2) {
         printf("Lista de clientes em ordem alfabética:\n\n");
     }
 
