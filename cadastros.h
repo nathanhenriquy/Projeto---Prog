@@ -109,7 +109,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s %i \n\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status); 
+    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s %i \n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status); 
     fclose(arq);
 
     salvarUltimoId(pxId);
