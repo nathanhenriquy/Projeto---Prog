@@ -109,7 +109,7 @@ void registrarCadastro(struct cadastro *u) {
         return;
     }
     
-    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s %i \n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status); 
+    fprintf(arq, "%i %s %i %i %i %lld %s %s %s %s %i \n\n", u->id, u->nome,u->dia, u->mes,u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status); 
     fclose(arq);
 
     salvarUltimoId(pxId);
@@ -267,7 +267,7 @@ void adicionarApp(struct cadastro *u)
     fprintf(arq, "%s %s %s %s %i \n", a.site, a.email_usado, a.user_usado, a.senha_usada, a.id );
     fclose(arq);
 
-    system("cls");
+ 
     printf("Informações do site/senha adicionadas com sucesso!\n");
 }
 
@@ -322,7 +322,7 @@ void listarSitesUsuario(struct cadastro *u)
         printf("Erro ao abrir o arquivo .\n");
         return;
     };
-    system("cls");
+
     printf("Lista de Apps/Sites cadastrados para o usuario:\n\n");
 
     while (fscanf(arq, "%s %s %s %s %i", a->site, a->email_usado, a->user_usado, a->senha_usada, &a->id) != EOF)
@@ -354,7 +354,7 @@ void listarSitesUsuario(struct cadastro *u)
 
 void desativarPorCPF(struct cadastro *u) {
     long long int buscaCPF;
-    system("cls");
+    
     printf("Digite o CPF que quer desativar: ");
     scanf("%lld", &buscaCPF);
     
@@ -443,7 +443,7 @@ void listarClientes(struct cadastro *u) {
         printf("Erro ao abrir o arquivo de usuarios.\n");
         return;
     }
-    system("cls");
+
     int ordem;
     printf("Escolha a ordem de listagem:\n");
     printf("1 - Por ID\n");
@@ -469,9 +469,7 @@ void listarClientes(struct cadastro *u) {
 
     if (ordem == 1) {
         printf("Lista de clientes por ID:\n\n");
-    }
-
-    if (ordem == 2) {
+    } else {
         printf("Lista de clientes em ordem alfabética:\n\n");
     }
 
@@ -504,7 +502,7 @@ void listarClientes(struct cadastro *u) {
 
 void buscarPorCPF(struct cadastro *u) {
     long long int buscaCPF;
-    system("cls");
+    
     printf("Digite o CPF a ser pesquisado: ");
     scanf("%lld", &buscaCPF);
     
