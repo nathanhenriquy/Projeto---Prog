@@ -351,48 +351,60 @@ void listarSitesUsuario(struct cadastro *u)
 
 
 // ==== Codigo para Remover Cliente daqui para baixo ====
-/*
-void removerCliente(int id){ 
+
+void removerCliente(int long int cpf); 
+
+int main(){ 
+   long long int cpfRemovido; 
+
+    printf("Informe o CPF do cliente que deseja remover: "); 
+    scanf("%lld", &cpfRemovido); 
+
+    removerCliente(cpfRemovido); 
+
+    return 0; 
+} 
+
+void removerCliente(long long int cpf){ 
     FILE *arq = fopen("usuarios.txt", "r"); 
-    FILE *tempFile = fopen("tempFile.txt", "w"); // Abertura do arquivo temporário 
+    FILE *tempFile = fopen("tempFile.txt", "w"); 
+
     if (arq == NULL || tempFile == NULL){ 
-        printf("Erro ao abrir os arquivos. \n"); 
-        return;
+        printf("Erro ao abrir os arquivos.\n"); 
+        return; 
     } 
 
     struct cadastro cliente; 
     int encontrado = 0; 
 
-    while (fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s", &cliente.id, cliente.nome, 
-        &cliente.dia, &cliente.mes, &cliente.ano, &cliente.cpf, cliente.tel, cliente.email, 
-        cliente.username, cliente.senha) != EOF){ 
-            if (cliente.id != id){ 
-                fprintf(tempFile, "%i %s %i %i %i %lld %s %s %s %s\n", cliente.id, cliente.nome, 
-                cliente.dia, cliente.mes, cliente.ano, cliente.cpf, cliente.tel, cliente.email, 
-                cliente.username, cliente.senha); // verifica se o ID do cliente é diferente do ID informado pelo usuário
-            } else{ 
-                encontrado = 1; 
-            }
-        } 
-
-        fclose(arq); 
-        fclose(tempFile); 
-
-        if(encontrado){ 
-            remove("usuarios.txt"); 
-            rename("tempFile.txt", "usuarios.txt"); 
-            printf("Cliente removido com sucesso.\n"); // Se o cliente for encontrado, ele é removido arquivo
+    while(fscanf(arq, "%i %s %i %i %i %lld %s %s %s %s", &cliente.id, cliente.nome, &cliente.dia, 
+    &cliente.mes, &cliente.ano, &cliente.cpf, cliente.tel, cliente.email, cliente.username, cliente.senha) != EOF) { 
+        if (cliente.cpf != cpf){ 
+            fprintf(tempFile, "%i %s %i %i %i %lld %s %s %s %s\n", cliente.id, cliente.nome, cliente.mes, cliente.ano, cliente.cpf, 
+            cliente.tel, cliente.email, cliente.username, cliente.senha);
         } else{ 
-            printf("Cliente não encontrado.\n"); 
-            remove("tempFile.txt"); // Remove arquivo temporário se o cliente não foi encontrado
+            encontrado = 1;
         }
+    }   
+
+    fclose(arq); 
+    fclose(tempFile); 
+
+    if (encontrado){ 
+        remove("usuarios.txt"); 
+        rename("tempFile.txt", "usuarios.txt"); 
+        printf("Cliente removido com sucesso. \n"); 
+    } else{ 
+        printf("Cliente não encontrado. \n"); 
+        remove("tempFile.txt");
+    }
 }
-*/
+
 // ==== Codigo para Remover Cliente daqui para cima ====
 
 
 // ==== Codigo para Listar CLiente daqui para baixo ====
-/*
+
 void bubbleSort(struct cadastro *arr, int n){ 
     int i, j; 
     struct cadastro temp; 
@@ -425,12 +437,12 @@ void listarCliente() {
         return; 
     } 
 
-    while (count < maxClientes && fscanf(arq, "%d %s %d %d %d %s %s %s %s %s", &cliente[count].id, cliente[count].nome,
-            &cliente[count].dia, &cliente[count].mes, &cliente[count].ano, cliente[count].cpf, 
+    while (count < maxClientes && fscanf(arq, "%d %s %d %d %d %lld %s %s %s %s", &cliente[count].id, cliente[count].nome,
+            &cliente[count].dia, &cliente[count].mes, &cliente[count].ano, &cliente[count].cpf, 
             cliente[count].tel, cliente[count].email, cliente[count].username, cliente[count].senha) ==10){ 
-                count++; 
-            } 
-
+                count++;
+            }
+         
             fclose(arq); 
            
            printf("Você gostaria de listar em ordem alfabetica ou por ordem de ID? (1 para alfabetica , 2 para ID): "); 
@@ -442,12 +454,20 @@ void listarCliente() {
            } 
 
            for (int i = 0; i < count; i++){ 
-            printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %lld\n, Telefone: %s\n, Email: %s\n, Nome de usuario: %s\n, Senha: %s \n", cliente[i].id, cliente[i].nome, cliente[i].dia, cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha);
+            printf("ID: %d\n, Nome: %s\n, Data de Nascimento: %d/%d/%d\n, CPF: %lld\n, Telefone: %s\n, Email: %s\n, Nome de usuario: %s\n, Senha: %s \n", 
+            cliente[i].id, cliente[i].nome, cliente[i].dia, cliente[i].mes, cliente[i].ano, cliente[i].cpf, cliente[i].tel, cliente[i].email, cliente[i].username, cliente[i].senha);
+           }
+         
 
-           } 
+    free(cliente);  
+}
+     
 
-           free(cliente);  
-}*/
+int main(){ 
+    listarCliente(); 
+    return 0; 
+}
+
 // ==== Codigo para Listar CLiente daqui para cima ====
 
 
