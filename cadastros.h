@@ -352,14 +352,14 @@ void listarSitesUsuario(struct cadastro *u)
 
 // ==== Codigo para Remover Cliente daqui para baixo ====
 
-void desativarPorCPF(struct cadastro *u) {
+void desativarPorCPF(struct cadastro *u) { //puxa cadastros pelo ponteiro de u 
     long long int buscaCPF;
     
     printf("Digite o CPF que quer desativar: ");
     scanf("%lld", &buscaCPF);
     
     FILE *arquivo = fopen("usuarios.txt", "r");
-    FILE *arqTemp = fopen("usuarios_temp.txt", "w");
+    FILE *arqTemp = fopen("usuarios_temp.txt", "w"); // cria um arquivo temporário que irá armazenar os novos dados e irá ser renomeado
 
     if (arquivo == NULL || arqTemp == NULL) {
         printf("Erro ao abrir os arquivos.\n");
@@ -369,7 +369,7 @@ void desativarPorCPF(struct cadastro *u) {
     int encontrado = 0;  
     
     while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &u->id, u->nome, &u->dia, &u->mes, &u->ano, &u->cpf, u->tel, u->email, u->username, u->senha, &u->status) != EOF) {
-        if (u->cpf == buscaCPF) {
+        if (u->cpf == buscaCPF) { // busca o cpf
             system("cls");
 
             printf("ID: %i\n", u->id);
@@ -386,14 +386,14 @@ void desativarPorCPF(struct cadastro *u) {
             scanf("%d", &resp);
 
             if (resp == 1) {
-                u->status = 0;                
+                u->status = 0; // altera para 0 e desativa            
                 fprintf(arqTemp, "%i %s %i %i %i %lld %s %s %s %s %i\n", u->id, u->nome, u->dia, u->mes, u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status);
                 printf("Conta desativada com sucesso!\n");
             } else {
                 fprintf(arqTemp, "%i %s %i %i %i %lld %s %s %s %s %i\n", u->id, u->nome, u->dia, u->mes, u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status);
                 printf("Operacao cancelada. A conta nao foi desativada.\n");
             }
-
+            // dados do arquivo usuários.txt vai para o arquivo temporário
             encontrado = 1; 
         } else {
             fprintf(arqTemp, "%i %s %i %i %i %lld %s %s %s %s %i\n", u->id, u->nome, u->dia, u->mes, u->ano, u->cpf, u->tel, u->email, u->username, u->senha, u->status);
@@ -407,8 +407,8 @@ void desativarPorCPF(struct cadastro *u) {
     fclose(arquivo);
     fclose(arqTemp);
 
-    remove("usuarios.txt");
-    rename("usuarios_temp.txt", "usuarios.txt");
+    remove("usuarios.txt"); // arquivo é removido
+    rename("usuarios_temp.txt", "usuarios.txt"); // e o arquivo temporário é renomeado
 }
 
 
@@ -422,13 +422,13 @@ void desativarPorCPF(struct cadastro *u) {
 void bubbleSort(struct cadastro *u, int count, int ordem) {
     struct cadastro temp;
 
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = 0; j < count - 1 - i; j++) {
-            if ((ordem == 1 && u[j].id > u[j + 1].id) ||
+    for (int i = 0; i < count - 1; i++) { 
+        for (int j = 0; j < count - 1 - i; j++) { // evita comparacoes
+            if ((ordem == 1 && u[j].id > u[j + 1].id) || // se ordem for 1 será ordenado por id e 2 alfabética
                 (ordem == 2 && strcmp(u[j].nome, u[j + 1].nome) > 0)) {
                 temp = u[j];
                 u[j] = u[j + 1];
-                u[j + 1] = temp;
+                u[j + 1] = temp; // faz a troca dos elementos usando 'temp'.
             }
         }
     }
@@ -457,13 +457,13 @@ void listarClientes(struct cadastro *u) {
     }
 
     struct cadastro clientes[100]; // exemplo de 100 clientes
-    int count = 0;
+    int count = 0; //contador de clientes que seram ordenados
 
     while (fscanf(arquivo, "%i %s %i %i %i %lld %s %s %s %s %i", &clientes[count].id, clientes[count].nome, &clientes[count].dia, &clientes[count].mes, &clientes[count].ano, &clientes[count].cpf, clientes[count].tel, clientes[count].email, clientes[count].username, clientes[count].senha, &clientes[count].status) == 11) {
         count++;
         }
 
-    bubbleSort(clientes, count, ordem);
+    bubbleSort(clientes, count, ordem); //chamada dos parâmetros
 
     if (ordem == 1) {
         printf("Lista de clientes por ID:\n\n");
@@ -481,7 +481,7 @@ void listarClientes(struct cadastro *u) {
         printf("Username: %s\n", clientes[i].username);
         printf("Senha: %s\n", clientes[i].senha);
 
-        if (clientes[i].status == 0) {
+        if (clientes[i].status == 0) { 
             printf("Status: Cliente desativado\n");
         } else {
             printf("Status: Cliente ativo\n");
