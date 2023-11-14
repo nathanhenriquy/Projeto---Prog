@@ -493,7 +493,6 @@ void listarClientes(struct cadastro *u) {
     fclose(arquivo);
 }
 
-
 // ==== Codigo para Listar CLiente daqui para cima ====
 
 
