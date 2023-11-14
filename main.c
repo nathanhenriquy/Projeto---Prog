@@ -16,6 +16,7 @@ int main()
 
     system("cls");
 
+
     while (1)
     {
         //system("cls");
@@ -28,7 +29,7 @@ int main()
         case 1:
             if (login(&u))// aqui vai ser a parte de login
             {
-                system("cls");
+                //system("cls");
                 printf("Login bem-sucedido!\n");
                 while (1)
                 {
@@ -52,8 +53,6 @@ int main()
 
                     if (escolha == 3)
                     {
-                        system("cls");
-
                         break;
                     }
                     //system("cls");
@@ -70,8 +69,6 @@ int main()
             break;
 
         case 3:
-            system("cls");
-
             while (1)
             {
                 telaAdm();
