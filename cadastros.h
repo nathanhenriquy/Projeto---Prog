@@ -541,7 +541,7 @@ void buscarPorCPF(struct cadastro *u) {
     
     if (!encontrado) {
         system("cls");
-        printf("Usuário com CPF %lld nao encontrado.\n", buscaCPF);
+        printf("Usuario com CPF %lld nao encontrado.\n", buscaCPF);
     }
 }
 
